@@ -1,15 +1,21 @@
 #pragma once
 
-// this entrypoint is to be used by apps, not by the engine
+// this entrypoint is meant to be used by apps, not by the engine
 
 #if defined(DEYO_PLATFORM_WINDOWS)
 
-extern Deyo::Application* Deyo::GetApplication();
+extern Deyo::Application* Deyo::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	// get the application
-	Deyo::Application* app = Deyo::GetApplication();
+	// initialize log system
+	Deyo::Log::Init();
+
+	DEYO_CORE_INFO("Initialized log system");
+	DEYO_CORE_INFO("Welcome to the Deyo Engine");
+
+	// create the application
+	Deyo::Application* app = Deyo::CreateApplication();
 
 	// run it
 	app->Run();

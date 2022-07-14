@@ -1,0 +1,3 @@
+[submodule "Deyo/vendor/spdlog"]
+	path = Deyo/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git

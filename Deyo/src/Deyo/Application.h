@@ -12,6 +12,6 @@ namespace Deyo
 		void Run();
 	};
 
-	Deyo::Application* GetApplication();
+	Deyo::Application* CreateApplication();
 }
 
