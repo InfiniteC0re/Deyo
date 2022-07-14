@@ -34,3 +34,7 @@
 .vs
 bin/
 bin-int/
+
+*.filters
+*.vcxproj.filters
+*.sln
