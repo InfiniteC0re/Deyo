@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <Deyo/Window.h>
+#include <Deyo/Core/Window.h>
 
 #ifdef DEYO_PLATFORM_WINDOWS
 	#include <Platform/Windows/WinWindow.h>
@@ -7,12 +7,10 @@
 
 namespace Deyo
 {
-	IWindow* WindowFactory::CreateDeyoWindow(const WindowSettings& settings)
+	IWindow* WindowFactory::Create(const WindowSettings& settings)
 	{
 		#ifdef DEYO_PLATFORM_WINDOWS
 			return new WinWindow(settings);
-		#else
-			#error "Unsupported platforms"
 		#endif
 
 		return nullptr;

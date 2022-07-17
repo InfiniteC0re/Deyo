@@ -11,6 +11,8 @@ workspace "Deyo"
 
 outputdir = "%{cfg.buildcfg}_%{cfg.platform}_%{cfg.architecture}"
 
+include "Deyo/vendor/GLFW"
+
 project "Deyo"
 	location "Deyo"
 	kind "SharedLib"
@@ -21,6 +23,12 @@ project "Deyo"
 
 	pchheader "pch.h"
 	pchsource "%{prj.name}/src/pch.cpp"
+	
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
+	}
 
 	files
 	{
@@ -31,7 +39,8 @@ project "Deyo"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/vendor/GLFW/include"
 	}
 
 	postbuildcommands
@@ -52,14 +61,17 @@ project "Deyo"
 		}
 
 	filter "configurations:Debug"
+		buildoptions "/MDd"
 		defines "DEYO_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
+		buildoptions "/MD"
 		defines "DEYO_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
+		buildoptions "/MD"
 		defines "DEYO_DIST"
 		optimize "On"
 

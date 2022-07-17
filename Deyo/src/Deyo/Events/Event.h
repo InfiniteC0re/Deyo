@@ -1,5 +1,5 @@
 #pragma once
-#include <Deyo/Core.h>
+#include <Deyo/Core/Core.h>
 
 #include <functional>
 
@@ -31,7 +31,7 @@ namespace Deyo
 	virtual const char* GetName() const override { return #TYPE; }
 
 #define EVENT_CATEGORY(CATEGORIES) \
-	virtual uint32_t GetCategoryFlags() {return (CATEGORIES); }
+	virtual uint32_t GetCategoryFlags() const override {return (CATEGORIES); }
 
 	class Event
 	{

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Events/Event.h"
+#include <Deyo/Events/Event.h>
 
 #include <cstdint>
 #include <functional>
@@ -12,6 +12,7 @@ namespace Deyo
 	public:
 		// This callback is being called on any events
 		using EventCb = std::function<void(Event&)>;
+		virtual ~IWindow() = default;
 
 		/* ------- Window ------- */
 
@@ -40,6 +41,10 @@ namespace Deyo
 
 		// Switches VSync state
 		virtual void SetVSync(bool state) = 0;
+
+	private:
+		// Closes window and deinitializes context
+		virtual void Terminate() = 0;
 	};
 
 	class WindowFactory
@@ -54,13 +59,13 @@ namespace Deyo
 
 			WindowSettings(
 				const std::string& title = "Deyo Engine",
-				uint16_t width = 1280,
-				uint16_t height = 720,
+				uint16_t width = 800,
+				uint16_t height = 600,
 				bool vsync = false
 			) : Title(title), Width(width), Height(height), VSync(vsync) { };
 		};
 
 		// Creates window based on the compile platform
-		static IWindow* CreateDeyoWindow(const WindowSettings& settings = WindowSettings());
+		static IWindow* Create(const WindowSettings& settings = WindowSettings());
 	};
 }

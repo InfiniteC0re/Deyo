@@ -1,5 +1,5 @@
 #pragma once
 
-#include "Deyo/Log.h"
-#include "Deyo/Application.h"
-#include "Deyo/Entrypoint.h"
+#include "Deyo/Core/Log.h"
+#include "Deyo/Core/Application.h"
+#include "Deyo/Core/Entrypoint.h"

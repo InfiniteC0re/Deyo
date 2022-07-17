@@ -15,8 +15,12 @@
 // #include <cstdint>
 // #include <string>
 
+// Libraries
+#include <GLFW/glfw3.h>
+#include <gl/GL.h>
+
 // Deyo headers
-#include <Deyo/Log.h>
+#include <Deyo/Core/Log.h>
 
 // Platform specific headers
 #ifdef DEYO_PLATFORM_WINDOWS
