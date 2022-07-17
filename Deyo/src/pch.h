@@ -6,14 +6,14 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
-#include <sstream>
 
 // Types
-#include <cstdint>
 #include <vector>
-#include <string>
 #include <unordered_set>
 #include <unordered_map>
+// these two are some parts of <functional> or it's dependencies
+// #include <cstdint>
+// #include <string>
 
 // Deyo headers
 #include <Deyo/Log.h>

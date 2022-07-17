@@ -25,6 +25,7 @@ namespace Deyo
 		inline uint16_t IsRepeat() { return m_Repeat; }
 
 		EVENT_TYPE(EventType::KeyPress)
+
 	private:
 		bool m_Repeat;
 	};

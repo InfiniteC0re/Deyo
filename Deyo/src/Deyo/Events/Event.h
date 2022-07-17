@@ -1,6 +1,7 @@
 #pragma once
-#include "pch.h"
 #include <Deyo/Core.h>
+
+#include <functional>
 
 namespace Deyo
 {
