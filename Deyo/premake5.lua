@@ -35,7 +35,7 @@ project "Deyo"
 	}
 
 	filter "system:windows"
-		staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines
@@ -45,16 +45,16 @@ project "Deyo"
 		}
 
 	filter "configurations:Debug"
-		buildoptions "/MDd"
 		defines "DEYO_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		buildoptions "/MD"
 		defines "DEYO_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
-		buildoptions "/MD"
 		defines "DEYO_DIST"
+		runtime "Release"
 		optimize "On"

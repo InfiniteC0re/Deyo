@@ -5,13 +5,14 @@
 
 namespace Deyo
 {
-	class DEYO_API Log
+	class Log
 	{
 	public:
-		static void Init();
+		DEYO_API static void Init();
 
-		static inline std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; };
-		static inline std::shared_ptr<spdlog::logger>& GetAppLogger() { return s_AppLogger; };
+		DEYO_API static inline std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; };
+		DEYO_API static inline std::shared_ptr<spdlog::logger>& GetAppLogger() { return s_AppLogger; };
+	
 	private:
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;
 		static std::shared_ptr<spdlog::logger> s_AppLogger;

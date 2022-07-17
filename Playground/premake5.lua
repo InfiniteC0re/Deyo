@@ -1,6 +1,7 @@
 project "Playground"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++20"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -23,8 +24,7 @@ project "Playground"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines
@@ -33,16 +33,16 @@ project "Playground"
 		}
 
 	filter "configurations:Debug"
-		buildoptions "/MDd"
+		runtime "Debug"
 		defines "DEYO_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
-		buildoptions "/MD"
+		runtime "Release"
 		defines "DEYO_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
-		buildoptions "/MD"
+		runtime "Release"
 		defines "DEYO_DIST"
 		optimize "On"
