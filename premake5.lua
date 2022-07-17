@@ -12,6 +12,7 @@ workspace "Deyo"
 outputdir = "%{cfg.buildcfg}_%{cfg.platform}_%{cfg.architecture}"
 
 include "Deyo/vendor/GLFW"
+include "Deyo/vendor/GLAD"
 
 project "Deyo"
 	location "Deyo"
@@ -28,6 +29,7 @@ project "Deyo"
 	links
 	{
 		"GLFW",
+		"GLAD",
 		"opengl32.lib"
 	}
 
