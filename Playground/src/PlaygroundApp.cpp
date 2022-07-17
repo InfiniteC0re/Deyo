@@ -5,7 +5,7 @@ class PlaygroundApp : public Deyo::Application
 public:
 	PlaygroundApp()
 	{
-		DEYO_INFO("Welcome to the test application");
+		//DEYO_INFO("Welcome to the test application");
 	}
 };
 
