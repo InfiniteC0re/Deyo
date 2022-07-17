@@ -1,11 +1,23 @@
 #include <Deyo.h>
 
+class TestLayer : public Deyo::Layer
+{
+public:
+	TestLayer() : Layer("TestLayer") {};
+
+	void OnEvent(Deyo::Event& e) override
+	{
+		DEYO_INFO("FirstLayer: {0}", e.ToString());
+		e.SetHandled(true);
+	}
+};
+
 class PlaygroundApp : public Deyo::Application
 {
 public:
 	PlaygroundApp()
 	{
-		//DEYO_INFO("Welcome to the test application");
+		PushLayer(new TestLayer());
 	}
 };
 

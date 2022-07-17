@@ -41,6 +41,9 @@ namespace Deyo
 		virtual uint32_t GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
+		inline bool IsHandled() { return m_Handled; }
+		inline void SetHandled(bool state) { m_Handled = state; }
+
 		inline bool IsInCategory(EventCategory filter) { return GetCategoryFlags() & filter; }
 	private:
 		friend class EventDispatcher;

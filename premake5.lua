@@ -17,6 +17,7 @@ project "Deyo"
 	location "Deyo"
 	kind "SharedLib"
 	language "C++"
+	cppdialect "C++20"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -49,15 +50,13 @@ project "Deyo"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
 			"DEYO_PLATFORM_WINDOWS",
-			"DEYO_ENGINE",
-			"_WINDLL"
+			"DEYO_ENGINE"
 		}
 
 	filter "configurations:Debug"
@@ -112,13 +111,16 @@ project "Playground"
 		}
 
 	filter "configurations:Debug"
+		buildoptions "/MDd"
 		defines "DEYO_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
+		buildoptions "/MD"
 		defines "DEYO_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
+		buildoptions "/MD"
 		defines "DEYO_DIST"
 		optimize "On"
