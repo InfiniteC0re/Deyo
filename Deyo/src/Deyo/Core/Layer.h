@@ -3,11 +3,11 @@
 
 namespace Deyo
 {
-	class DEYO_API Layer
+	class Layer
 	{
 	public:
-		Layer(const std::string& name = "Layer");
-		virtual ~Layer();
+		DEYO_API Layer(const std::string& name = "Layer");
+		DEYO_API virtual ~Layer();
 
 		virtual void OnAttach() { };
 

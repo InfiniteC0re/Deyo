@@ -9,29 +9,29 @@ namespace Deyo
 {
 	#define DEYO_BIND_EVENT(F) std::bind(&F, this, std::placeholders::_1)
 	
-	class DEYO_API Application
+	class Application
 	{
 	public:
-		Application();
-		virtual ~Application();
+		DEYO_API Application();
+		DEYO_API virtual ~Application();
 
 		// Runs loop
-		void Run();
+		DEYO_API void Run();
 
 		// Call it when you want to exit
-		void Close();
+		DEYO_API void Close();
 
 		// Pushes layer to layer stack
-		void PushLayer(Layer* layer);
+		DEYO_API void PushLayer(Layer* layer);
 
 		// Pushes overlay to layer stack
-		void PushOverlay(Layer* overlay);
+		DEYO_API void PushOverlay(Layer* overlay);
 
 		// Pops layer from layer stack
-		void PopLayer(Layer* layer);
+		DEYO_API void PopLayer(Layer* layer);
 
 		// Pops overlay from layer stack
-		void PopOverlay(Layer* overlay);
+		DEYO_API void PopOverlay(Layer* overlay);
 
 	private:
 		/* ------ Events ------ */

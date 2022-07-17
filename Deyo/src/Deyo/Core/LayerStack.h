@@ -4,7 +4,7 @@
 
 namespace Deyo
 {
-	class DEYO_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

@@ -1,10 +1,14 @@
 #pragma once
 
-// this entrypoint is meant to be used by apps, not by the engine
+// For client use only
 
-#if defined(DEYO_PLATFORM_WINDOWS)
+#ifndef DEYO_CLIENT
+	#error "Include <Deyo/Deyo.h> instead please"
+#endif
 
 extern Deyo::Application* Deyo::CreateApplication();
+
+#ifdef DEYO_PLATFORM_WINDOWS
 
 int main(int argc, char** argv)
 {

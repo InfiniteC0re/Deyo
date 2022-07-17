@@ -1,6 +1,10 @@
 #pragma once
 
-// For use by clients
+#ifdef DEYO_ENGINE
+	#error "This header should only be included by clients"
+#else
+	#define DEYO_CLIENT
+#endif
 
 #include <Deyo/Core/Application.h>
 #include <Deyo/Core/Layer.h>

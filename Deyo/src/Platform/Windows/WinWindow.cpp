@@ -132,7 +132,7 @@ namespace Deyo
 		{
 			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
 			
-			MouseScrollEvent evt(offsetX, offsetY);
+			MouseScrollEvent evt((float)offsetX, (float)offsetY);
 			winData.EventCallback(evt);
 		});
 
