@@ -10,14 +10,15 @@ namespace Deyo
 		DEYO_API virtual ~Layer();
 
 		virtual void OnAttach() { };
-
 		virtual void OnDettach() { };
-		
-		virtual void OnUpdate() { };
-
+		virtual void OnUpdate() { }
 		virtual void OnEvent(Event&) { };
 
-	private:
+		inline bool GetAcceptEvents() { return m_AcceptEvents; }
+		inline void SetAcceptEvents(bool state) { m_AcceptEvents = state; }
+
+	protected:
+		bool m_AcceptEvents = true;
 		std::string m_DebugName;
 	};
 }

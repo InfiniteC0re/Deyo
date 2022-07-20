@@ -2,86 +2,94 @@
 #include "Application.h"
 #include <Deyo/Events/ApplicationEvent.h>
 
-/* Constructor & destructor */
-
-Deyo::Application::Application()
+namespace Deyo
 {
-	m_Window = std::unique_ptr<IWindow>(WindowFactory::Create());
-	m_Window->SetEventCallback(DEYO_BIND_EVENT(Application::OnEvent));
-}
+	Application* Application::s_Instance = nullptr;
 
-Deyo::Application::~Application()
-{
-	Close();
-}
+	/* Constructor & destructor */
 
-/* Methods */
-
-void Deyo::Application::Run()
-{
-	while (m_Running)
+	Application::Application()
 	{
-		glClearColor(1, 1, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
+		DEYO_ASSERT(s_Instance == nullptr, "Why are you are making a second application?");
+		s_Instance = this;
 
-		for (Layer* layer : m_LayerStack)
+		m_Window = std::unique_ptr<IWindow>(WindowFactory::Create());
+		m_Window->SetEventCallback(DEYO_BIND_EVENT(Application::OnEvent));
+	}
+
+	Application::~Application()
+	{
+		Close();
+	}
+
+	/* Methods */
+
+	void Application::Run()
+	{
+		while (m_Running)
 		{
-			layer->OnUpdate();
+			glClearColor(1, 1, 0, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate();
+			}
+
+			m_Window->OnUpdate();
 		}
-
-		m_Window->OnUpdate();
 	}
-}
 
-void Deyo::Application::Close()
-{
-	m_Running = false;
-}
-
-void Deyo::Application::PushLayer(Layer* layer)
-{
-	m_LayerStack.PushLayer(layer);
-}
-
-void Deyo::Application::PushOverlay(Layer* overlay)
-{
-	m_LayerStack.PushOverlay(overlay);
-}
-
-void Deyo::Application::PopLayer(Layer* layer)
-{
-	m_LayerStack.PopLayer(layer);
-}
-
-void Deyo::Application::PopOverlay(Layer* overlay)
-{
-	m_LayerStack.PopLayer(overlay);
-}
-
-/* Events */
-
-void Deyo::Application::OnEvent(Event& evt)
-{
-	EventDispatcher dispatcher(evt);
-	dispatcher.Dispatch<WindowCloseEvent>(DEYO_BIND_EVENT(Application::OnWindowClose));
-	dispatcher.Dispatch<WindowResizeEvent>(DEYO_BIND_EVENT(Application::OnWindowResize));
-
-	if (evt.IsHandled()) return;
-	for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+	void Application::Close()
 	{
-		(*--it)->OnEvent(evt);
-		if (evt.IsHandled()) break;
+		m_Running = false;
 	}
-}
 
-bool Deyo::Application::OnWindowClose(WindowCloseEvent& evt)
-{
-	Close();
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
 
-	return true;
-}
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+	}
 
-bool Deyo::Application::OnWindowResize(WindowResizeEvent& evt)
-{
-	return true;
+	void Application::PopLayer(Layer* layer)
+	{
+		m_LayerStack.PopLayer(layer);
+	}
+
+	void Application::PopOverlay(Layer* overlay)
+	{
+		m_LayerStack.PopLayer(overlay);
+	}
+
+	/* Events */
+
+	void Application::OnEvent(Event& evt)
+	{
+		EventDispatcher dispatcher(evt);
+		dispatcher.Dispatch<WindowCloseEvent>(DEYO_BIND_EVENT(Application::OnWindowClose));
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		{
+			auto layer = *--it;
+
+			if (evt.IsHandled() || !layer->GetAcceptEvents()) break;
+			layer->OnEvent(evt);
+		}
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& evt)
+	{
+		Close();
+
+		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& evt)
+	{
+		return true;
+	}
 }

@@ -13,6 +13,7 @@ project "Deyo"
 	{
 		"GLFW",
 		"GLAD",
+		"ImGui",
 		"opengl32.lib"
 	}
 
@@ -26,12 +27,15 @@ project "Deyo"
 	{
 		"src",
 		"vendor/spdlog/include",
-		"vendor/GLFW/include"
+		"vendor/GLFW/include",
+		"vendor/GLAD/include",
+		"vendor/ImGui",
 	}
-
-	postbuildcommands
+	
+	defines
 	{
-		("{COPY} %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/Playground")
+		"DEYO_ENGINE",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	filter "system:windows"
@@ -40,8 +44,7 @@ project "Deyo"
 
 		defines
 		{
-			"DEYO_PLATFORM_WINDOWS",
-			"DEYO_ENGINE"
+			"DEYO_PLATFORM_WINDOWS"
 		}
 
 	filter "configurations:Debug"

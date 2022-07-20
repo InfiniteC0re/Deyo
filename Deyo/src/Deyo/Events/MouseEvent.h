@@ -6,8 +6,9 @@ namespace Deyo
 	class MouseButtonEvent : public Event
 	{
 	public:
-		inline bool IsLeftMouseButton() { return m_Button == GLFW_MOUSE_BUTTON_LEFT; }
-		inline bool IsRightMouseButton() { return m_Button == GLFW_MOUSE_BUTTON_RIGHT; }
+		inline bool IsLeftMouseButton() { return m_Button == 0; }
+		inline bool IsRightMouseButton() { return m_Button == 1; }
+		inline uint8_t GetButton() { return m_Button; }
 
 		EVENT_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
 
@@ -62,7 +63,7 @@ namespace Deyo
 		{ }
 
 		inline float GetPosX() { return m_PosX; }
-		inline float GetOffsetY() { return m_PosY; }
+		inline float GetPosY() { return m_PosY; }
 
 		EVENT_TYPE(EventType::MouseMove)
 		EVENT_CATEGORY(EventCategoryInput | EventCategoryMouse)

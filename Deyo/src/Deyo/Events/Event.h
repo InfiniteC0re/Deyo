@@ -11,7 +11,7 @@ namespace Deyo
 		AppRender, AppTick, AppUpdate,
 		MouseScroll, MouseMove, MouseButtonPress, MouseButtonRelease,
 		WindowClose, WindowResize, WindowFocus, WindowUnfocus, WindowMove,
-		KeyPress, KeyRelease,
+		KeyPress, KeyRelease, KeyInput
 	};
 
 	enum EventCategory

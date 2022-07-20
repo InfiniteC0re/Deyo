@@ -33,6 +33,12 @@ namespace Deyo
 		// Pops overlay from layer stack
 		DEYO_API void PopOverlay(Layer* overlay);
 
+		// Returns application instance
+		static inline Application& Get() { return *s_Instance; }
+
+		// Returns reference to a window
+		inline IWindow& GetWindow() { return *m_Window; }
+
 	private:
 		/* ------ Events ------ */
 		
@@ -46,6 +52,8 @@ namespace Deyo
 		bool OnWindowResize(WindowResizeEvent& evt);
 
 	private:
+		static Application* s_Instance;
+
 		std::unique_ptr<IWindow> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;

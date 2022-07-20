@@ -6,6 +6,8 @@
 #include <Deyo/Events/MouseEvent.h>
 #include <Deyo/Events/KeyEvent.h>
 
+#include <GLFW/glfw3.h>
+
 namespace Deyo
 {
 	uint32_t WinWindow::s_WindowCount = 0;
@@ -33,6 +35,7 @@ namespace Deyo
 		DEYO_ASSERT(m_Window != nullptr, "glfwCreateWindow failed");
 
 		glfwMakeContextCurrent(m_Window);
+		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
 		/* Binding events */
@@ -67,6 +70,10 @@ namespace Deyo
 		{
 			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
 			WindowResizeEvent evt(width, height);
+
+			winData.Height = height;
+			winData.Width = width;
+
 			winData.EventCallback(evt);
 		});
 
@@ -87,26 +94,35 @@ namespace Deyo
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressEvent evt(key, false);
-					winData.EventCallback(evt);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					KeyReleaseEvent evt(key);
+					KeyPressEvent evt(key, mods, false);
 					winData.EventCallback(evt);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressEvent evt(key, true);
+					KeyPressEvent evt(key, mods, true);
+					winData.EventCallback(evt);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleaseEvent evt(key, mods);
 					winData.EventCallback(evt);
 					break;
 				}
 			}
 		});
 
-		// mouse
+		// mouse move
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int c)
+		{
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			KeyInputEvent evt(c);
+			winData.EventCallback(evt);
+		});
+
+		// mouse buttons
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -128,11 +144,21 @@ namespace Deyo
 			}
 		});
 
+		// scroll 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double offsetX, double offsetY)
 		{
 			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
 			
 			MouseScrollEvent evt((float)offsetX, (float)offsetY);
+			winData.EventCallback(evt);
+		});
+
+		// mouse move
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double offsetX, double offsetY)
+		{
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseMoveEvent evt((float)offsetX, (float)offsetY);
 			winData.EventCallback(evt);
 		});
 

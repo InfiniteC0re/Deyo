@@ -1,6 +1,8 @@
 #pragma once
 #include <Deyo/Core/Window.h>
 
+struct GLFWwindow;
+
 namespace Deyo
 {
 	class WinWindow : public IWindow

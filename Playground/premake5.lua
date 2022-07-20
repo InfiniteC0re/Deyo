@@ -22,6 +22,11 @@ project "Playground"
 		"%{wks.location}/Deyo/vendor/spdlog/include",
 		"%{wks.location}/Deyo/src"
 	}
+	
+	postbuildcommands
+	{
+		("{COPY} %{wks.location}/bin/" .. outputdir .. "/Deyo/Deyo.dll %{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+	}
 
 	filter "system:windows"
 		staticruntime "Off"

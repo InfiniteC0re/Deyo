@@ -16,8 +16,8 @@
 // #include <string>
 
 // Libraries
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <gl/GL.h>
 
 // Deyo headers
 #include <Deyo/Core/Log.h>

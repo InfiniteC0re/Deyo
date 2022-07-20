@@ -12,6 +12,7 @@ include "Deyo"
 -- engine dependencies
 include "Deyo/vendor/GLFW"
 include "Deyo/vendor/GLAD"
+include "Deyo/vendor/ImGui"
 
 -- client applications
 include "Playground"

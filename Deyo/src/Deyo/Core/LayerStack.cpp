@@ -16,11 +16,13 @@ namespace Deyo
 	void LayerStack::PushLayer(Layer* layer)
 	{
 		m_LastLayer = m_Layers.emplace(m_LastLayer, layer);
+		layer->OnAttach();
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
+		overlay->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* layer)
@@ -31,6 +33,8 @@ namespace Deyo
 		{
 			m_Layers.erase(res);
 			m_LastLayer--;
+			
+			layer->OnDettach();
 		}
 	}
 
@@ -41,6 +45,7 @@ namespace Deyo
 		if (res != m_Layers.end())
 		{
 			m_Layers.erase(res);
+			overlay->OnDettach();
 		}
 	}
 }
