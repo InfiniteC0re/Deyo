@@ -40,31 +40,6 @@ namespace Deyo
 		}
 	}
 
-	void Application::Close()
-	{
-		m_Running = false;
-	}
-
-	void Application::PushLayer(Layer* layer)
-	{
-		m_LayerStack.PushLayer(layer);
-	}
-
-	void Application::PushOverlay(Layer* overlay)
-	{
-		m_LayerStack.PushOverlay(overlay);
-	}
-
-	void Application::PopLayer(Layer* layer)
-	{
-		m_LayerStack.PopLayer(layer);
-	}
-
-	void Application::PopOverlay(Layer* overlay)
-	{
-		m_LayerStack.PopLayer(overlay);
-	}
-
 	/* Events */
 
 	void Application::OnEvent(Event& evt)

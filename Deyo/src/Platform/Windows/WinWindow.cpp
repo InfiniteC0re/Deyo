@@ -195,6 +195,18 @@ namespace Deyo
 		return m_Data.Title;
 	}
 
+	const char* WinWindow::GetClipboardText() const
+	{
+		DEYO_CORE_INFO("Window::GetClipboardText");
+		return glfwGetClipboardString(m_Window);
+	}
+
+	void WinWindow::SetClipboardText(const char* text)
+	{
+		DEYO_CORE_INFO("Window::SetClipboardText");
+		glfwSetClipboardString(nullptr, text);
+	}
+
 	void* WinWindow::GetNativeWindow() const
 	{
 		return nullptr;

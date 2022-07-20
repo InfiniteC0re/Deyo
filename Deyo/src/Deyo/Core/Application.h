@@ -19,25 +19,31 @@ namespace Deyo
 		DEYO_API void Run();
 
 		// Call it when you want to exit
-		DEYO_API void Close();
+		inline DEYO_API void Close() { m_Running = false; }
 
 		// Pushes layer to layer stack
-		DEYO_API void PushLayer(Layer* layer);
+		inline DEYO_API void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
 
 		// Pushes overlay to layer stack
-		DEYO_API void PushOverlay(Layer* overlay);
+		inline DEYO_API void PushOverlay(Layer* overlay) { m_LayerStack.PushOverlay(overlay); }
 
 		// Pops layer from layer stack
-		DEYO_API void PopLayer(Layer* layer);
+		inline DEYO_API void PopLayer(Layer* layer) { m_LayerStack.PopLayer(layer); }
 
 		// Pops overlay from layer stack
-		DEYO_API void PopOverlay(Layer* overlay);
+		inline DEYO_API void PopOverlay(Layer* overlay) { m_LayerStack.PopLayer(overlay); }
 
-		// Returns application instance
+		// Returns application instance (reference)
 		static inline Application& Get() { return *s_Instance; }
 
 		// Returns reference to a window
 		inline IWindow& GetWindow() { return *m_Window; }
+
+		// Returns clipboard text
+		inline const char* GetClipboardText() const { return m_Window->GetClipboardText(); };
+
+		// Sets clipboard text
+		void SetClipboardText(const char* text) { m_Window->SetClipboardText(text); }
 
 	private:
 		/* ------ Events ------ */

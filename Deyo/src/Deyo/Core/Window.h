@@ -30,6 +30,12 @@ namespace Deyo
 
 		// Returns platform specified native window
 		virtual void* GetNativeWindow() const = 0;
+
+		// Returns clipboard text
+		virtual const char* GetClipboardText() const = 0;
+
+		// Sets clipboard text
+		virtual void SetClipboardText(const char* text) = 0;
 		
 		/* ------- Attributes ------- */
 

@@ -16,6 +16,11 @@ namespace Deyo
 
 	}
 
+	static void test(void* data, const char* text)
+	{
+
+	}
+
 	void ImGuiLayer::OnAttach()
 	{
 		// setup context
@@ -24,11 +29,25 @@ namespace Deyo
 		ImGui::SetCurrentContext(context);
 
 		auto& io = ImGui::GetIO();
-		//io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+		
+		// config flags
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+		// bacnend flags
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		
+		// clipboard settings
+		io.SetClipboardTextFn = [](void* user_data, const char* str)
+		{
+			Application::Get().SetClipboardText(str);
+		};
+
+		io.GetClipboardTextFn = [](void* user_data) -> const char*
+		{
+			return Application::Get().GetClipboardText();
+		};
 
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
@@ -99,16 +118,10 @@ namespace Deyo
 	{
 		switch (key)
 		{
-			case GLFW_KEY_0: return ImGuiKey_0;
-			case GLFW_KEY_1: return ImGuiKey_1;
-			case GLFW_KEY_2: return ImGuiKey_2;
-			case GLFW_KEY_3: return ImGuiKey_3;
-			case GLFW_KEY_4: return ImGuiKey_4;
-			case GLFW_KEY_5: return ImGuiKey_5;
-			case GLFW_KEY_6: return ImGuiKey_6;
-			case GLFW_KEY_7: return ImGuiKey_7;
-			case GLFW_KEY_8: return ImGuiKey_8;
-			case GLFW_KEY_9: return ImGuiKey_9;
+			case GLFW_KEY_ENTER: return ImGuiKey_Enter;
+			case GLFW_KEY_A: return ImGuiKey_A;
+			case GLFW_KEY_V: return ImGuiKey_V;
+			case GLFW_KEY_C: return ImGuiKey_C;
 			case GLFW_KEY_LEFT_SHIFT: return ImGuiKey_LeftShift;
 			case GLFW_KEY_RIGHT_SHIFT: return ImGuiKey_RightShift;
 			case GLFW_KEY_LEFT_SUPER: return ImGuiKey_LeftSuper;
@@ -118,6 +131,24 @@ namespace Deyo
 			case GLFW_KEY_LEFT_ALT: return ImGuiKey_LeftAlt;
 			case GLFW_KEY_RIGHT_ALT: return ImGuiKey_RightAlt;
 			case GLFW_KEY_BACKSPACE: return ImGuiKey_Backspace;
+			case GLFW_KEY_LEFT: return ImGuiKey_LeftArrow;
+			case GLFW_KEY_RIGHT: return ImGuiKey_RightArrow;
+			case GLFW_KEY_UP: return ImGuiKey_UpArrow;
+			case GLFW_KEY_DOWN: return ImGuiKey_DownArrow;
+			case GLFW_KEY_TAB: return ImGuiKey_Tab;
+			case GLFW_KEY_CAPS_LOCK: return ImGuiKey_CapsLock;
+			case GLFW_KEY_F1: return ImGuiKey_F1;
+			case GLFW_KEY_F2: return ImGuiKey_F2;
+			case GLFW_KEY_F3: return ImGuiKey_F3;
+			case GLFW_KEY_F4: return ImGuiKey_F4;
+			case GLFW_KEY_F5: return ImGuiKey_F5;
+			case GLFW_KEY_F6: return ImGuiKey_F6;
+			case GLFW_KEY_F7: return ImGuiKey_F7;
+			case GLFW_KEY_F8: return ImGuiKey_F8;
+			case GLFW_KEY_F9: return ImGuiKey_F9;
+			case GLFW_KEY_F10: return ImGuiKey_F10;
+			case GLFW_KEY_F11: return ImGuiKey_F11;
+			case GLFW_KEY_F12: return ImGuiKey_F12;
 			default: return ImGuiKey_None;
 		}
 	}
