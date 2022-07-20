@@ -7,12 +7,15 @@ workspace "Deyo"
 outputdir = "%{cfg.buildcfg}_%{cfg.platform}_%{cfg.architecture}"
 
 -- the engine
-include "Deyo"
-
--- engine dependencies
-include "Deyo/vendor/GLFW"
-include "Deyo/vendor/GLAD"
-include "Deyo/vendor/ImGui"
+group "Core"
+	include "Deyo"
 
 -- client applications
-include "Playground"
+group "Deyo Clients"
+	include "Playground"
+
+-- engine dependencies
+group "ThirdParty"
+	include "Deyo/vendor/GLFW"
+	include "Deyo/vendor/GLAD"
+	include "Deyo/vendor/ImGui"

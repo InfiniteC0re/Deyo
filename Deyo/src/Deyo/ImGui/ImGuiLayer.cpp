@@ -16,11 +16,6 @@ namespace Deyo
 
 	}
 
-	static void test(void* data, const char* text)
-	{
-
-	}
-
 	void ImGuiLayer::OnAttach()
 	{
 		// setup context
@@ -119,6 +114,7 @@ namespace Deyo
 		switch (key)
 		{
 			case GLFW_KEY_ENTER: return ImGuiKey_Enter;
+			case GLFW_KEY_KP_ENTER: return ImGuiKey_KeyPadEnter;
 			case GLFW_KEY_A: return ImGuiKey_A;
 			case GLFW_KEY_V: return ImGuiKey_V;
 			case GLFW_KEY_C: return ImGuiKey_C;
