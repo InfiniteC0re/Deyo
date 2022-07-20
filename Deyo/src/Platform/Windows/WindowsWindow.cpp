@@ -1,18 +1,23 @@
 #include "pch.h"
 
-#include "WinWindow.h"
+#include "WindowsWindow.h"
 
 #include <Deyo/Events/ApplicationEvent.h>
 #include <Deyo/Events/MouseEvent.h>
 #include <Deyo/Events/KeyEvent.h>
 
+#include <Deyo/Core/Input.h>
+
+#include <Platform/Windows/WindowsInput.h>
+
 #include <GLFW/glfw3.h>
 
 namespace Deyo
 {
-	uint32_t WinWindow::s_WindowCount = 0;
+	Input* CreateInput() { return new WindowsInput(); }
+	uint32_t WindowsWindow::s_WindowCount = 0;
 
-	WinWindow::WinWindow(const Deyo::WindowFactory::WindowSettings& settings)
+	WindowsWindow::WindowsWindow(const Deyo::WindowFactory::WindowSettings& settings)
 	{
 		// Save settings
 		m_Data.Title = settings.Title;
@@ -169,50 +174,50 @@ namespace Deyo
 		s_WindowCount++;
 	}
 
-	WinWindow::~WinWindow()
+	WindowsWindow::~WindowsWindow()
 	{
 		Terminate();
 	}
 
-	void WinWindow::OnUpdate()
+	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 
-	uint16_t WinWindow::GetWidth() const
+	uint16_t WindowsWindow::GetWidth() const
 	{
 		return m_Data.Width;
 	}
 
-	uint16_t WinWindow::GetHeight() const
+	uint16_t WindowsWindow::GetHeight() const
 	{
 		return m_Data.Height;
 	}
 
-	const std::string& WinWindow::GetTitle() const
+	const std::string& WindowsWindow::GetTitle() const
 	{
 		return m_Data.Title;
 	}
 
-	const char* WinWindow::GetClipboardText() const
+	const char* WindowsWindow::GetClipboardText() const
 	{
 		DEYO_CORE_INFO("Window::GetClipboardText");
 		return glfwGetClipboardString(m_Window);
 	}
 
-	void WinWindow::SetClipboardText(const char* text)
+	void WindowsWindow::SetClipboardText(const char* text)
 	{
 		DEYO_CORE_INFO("Window::SetClipboardText");
 		glfwSetClipboardString(nullptr, text);
 	}
 
-	void* WinWindow::GetNativeWindow() const
+	void* WindowsWindow::GetNativeWindow() const
 	{
-		return nullptr;
+		return m_Window;
 	}
 
-	void WinWindow::Terminate()
+	void WindowsWindow::Terminate()
 	{
 		glfwDestroyWindow(m_Window);
 		s_WindowCount--;
@@ -221,17 +226,17 @@ namespace Deyo
 		if (s_WindowCount == 0) { glfwTerminate(); }
 	}
 
-	void WinWindow::SetEventCallback(const EventCb& callback)
+	void WindowsWindow::SetEventCallback(const EventCb& callback)
 	{
 		m_Data.EventCallback = callback;
 	}
 
-	bool WinWindow::IsVSync() const
+	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
 	}
 
-	void WinWindow::SetVSync(bool state)
+	void WindowsWindow::SetVSync(bool state)
 	{
 		if (state)
 		{

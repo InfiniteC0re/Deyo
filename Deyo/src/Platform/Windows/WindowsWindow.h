@@ -5,15 +5,15 @@ struct GLFWwindow;
 
 namespace Deyo
 {
-	class WinWindow : public IWindow
+	class WindowsWindow : public IWindow
 	{
 	public:
 		using WindowSettings = WindowFactory::WindowSettings;
 		static uint32_t s_WindowCount;
 
 	public:
-		WinWindow(const Deyo::WindowFactory::WindowSettings& settings);
-		~WinWindow();
+		WindowsWindow(const Deyo::WindowFactory::WindowSettings& settings);
+		~WindowsWindow();
 
 		virtual void OnUpdate() override;
 		virtual uint16_t GetWidth() const override;

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Application.h"
+
+#include <Deyo/Core/Input.h>
 #include <Deyo/Events/ApplicationEvent.h>
 
 namespace Deyo
@@ -13,6 +15,10 @@ namespace Deyo
 		DEYO_ASSERT(s_Instance == nullptr, "Why are you are making a second application?");
 		s_Instance = this;
 
+		// create Input instance
+		Input::Create();
+
+		// create window
 		m_Window = std::unique_ptr<IWindow>(WindowFactory::Create());
 		m_Window->SetEventCallback(DEYO_BIND_EVENT(Application::OnEvent));
 	}
@@ -59,7 +65,6 @@ namespace Deyo
 	bool Application::OnWindowClose(WindowCloseEvent& evt)
 	{
 		Close();
-
 		return true;
 	}
 

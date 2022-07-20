@@ -2,7 +2,7 @@
 #include <Deyo/Core/Window.h>
 
 #ifdef DEYO_PLATFORM_WINDOWS
-	#include <Platform/Windows/WinWindow.h>
+	#include <Platform/Windows/WindowsWindow.h>
 #endif
 
 namespace Deyo
@@ -10,7 +10,7 @@ namespace Deyo
 	IWindow* WindowFactory::Create(const WindowSettings& settings)
 	{
 		#ifdef DEYO_PLATFORM_WINDOWS
-			return new WinWindow(settings);
+			return new WindowsWindow(settings);
 		#endif
 
 		return nullptr;
