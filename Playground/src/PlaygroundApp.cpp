@@ -29,7 +29,7 @@ public:
 
 		dispatcher.Dispatch<Deyo::KeyPressEvent>([](Deyo::KeyPressEvent& evt) -> bool
 		{
-			Deyo::ActionSlot slot = Deyo::ActionList::GetActionSlot(evt.GetKeyCode());
+			Deyo::ActionSlot slot = Deyo::ActionList::GetSlot(evt.GetKeyCode());
 
 			switch (slot)
 			{
@@ -56,10 +56,10 @@ public:
 	PlaygroundApp()
 	{
 		// bind key E to action Use
-		Deyo::ActionList::AddKeyToAction(Action_Use, Deyo::DEYO_KEY_E);
+		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_E);
 
 		// bind key F to action Use
-		Deyo::ActionList::AddKeyToAction(Action_Use, Deyo::DEYO_KEY_F);
+		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_R);
 
 		// create layers
 		PushLayer(new TestLayer());

@@ -6,11 +6,11 @@
 
 namespace Deyo
 {
-	using ActionSlot = uint16_t;
+	using ActionSlot = int16_t;
 
 	enum ActionSlot_ : ActionSlot
 	{
-		ActionSlot_None,
+		ActionSlot_None = -1,
 		ActionSlot_0,
 		ActionSlot_1,
 		ActionSlot_2,
@@ -50,11 +50,11 @@ namespace Deyo
 	class ActionList
 	{
 	public:
-		inline static void AddKeyToAction(ActionSlot slot, Key key) { s_Instance->m_ActionKeys[slot].push_back(key); };
-		inline static ActionSlot GetActionSlot(Key key) { return s_Instance->GetActionSlot_Impl(key); };
+		inline static void BindKey(ActionSlot slot, Key key) { s_Instance->m_ActionKeys[slot].push_back(key); };
+		inline static ActionSlot GetSlot(Key key) { return s_Instance->GetSlot_Impl(key); };
 	
 	private:
-		DEYO_API ActionSlot GetActionSlot_Impl(Key key) const
+		DEYO_API ActionSlot GetSlot_Impl(Key key) const
 		{
 			for (ActionSlot i = 0; i < ActionSlot_Count; i++)
 			{
