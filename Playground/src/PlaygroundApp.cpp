@@ -1,5 +1,10 @@
 #include <Deyo.h>
 
+enum Action_
+{
+	Action_Use = Deyo::ActionSlot_0
+};
+
 class TestLayer : public Deyo::Layer
 {
 public:
@@ -18,6 +23,28 @@ public:
 		}
 	}
 
+	void OnEvent(Deyo::Event& e) override
+	{
+		Deyo::EventDispatcher dispatcher(e);
+
+		dispatcher.Dispatch<Deyo::KeyPressEvent>([](Deyo::KeyPressEvent& evt) -> bool
+		{
+			Deyo::ActionSlot slot = Deyo::ActionList::GetActionSlot(evt.GetKeyCode());
+
+			switch (slot)
+			{
+			case Action_Use:
+				DEYO_INFO("Use");
+				break;
+			default:
+				DEYO_INFO("Unknown action");
+				break;
+			}
+			
+			return true;
+		});
+	}
+
 private:
 	bool m_LMBState = false;
 	bool m_RMBState = false;
@@ -28,6 +55,13 @@ class PlaygroundApp : public Deyo::Application
 public:
 	PlaygroundApp()
 	{
+		// bind key E to action Use
+		Deyo::ActionList::AddKeyToAction(Action_Use, Deyo::DEYO_KEY_E);
+
+		// bind key F to action Use
+		Deyo::ActionList::AddKeyToAction(Action_Use, Deyo::DEYO_KEY_F);
+
+		// create layers
 		PushLayer(new TestLayer());
 		PushOverlay(new Deyo::ImGuiLayer());
 	}

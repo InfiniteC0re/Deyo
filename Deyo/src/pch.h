@@ -6,6 +6,7 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <type_traits>
 
 // Types
 #include <vector>

@@ -29,7 +29,7 @@ namespace Deyo
 		double mouseX, mouseY;
 
 		glfwGetCursorPos(window, &mouseX, &mouseY);
-		return std::pair<float, float>(mouseX, mouseY);
+		return std::pair<float, float>((float)mouseX, (float)mouseY);
 	}
 
 	float WindowsInput::GetMouseXImpl() const

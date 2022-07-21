@@ -14,7 +14,7 @@ namespace Deyo
 	{
 		DEYO_ASSERT(s_Instance == nullptr, "Why are you are making a second application?");
 		s_Instance = this;
-
+		
 		// create Input instance
 		Input::Create();
 

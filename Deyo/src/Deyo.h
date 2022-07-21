@@ -7,9 +7,12 @@
 #endif
 
 #include <Deyo/Core/Application.h>
+#include <Deyo/Core/Action.h>
 #include <Deyo/Core/Input.h>
 #include <Deyo/Core/Layer.h>
 #include <Deyo/Core/Log.h>
+
+#include <Deyo/Events/Event.h>
 
 #include <Deyo/ImGui/ImGuiLayer.h>
 
