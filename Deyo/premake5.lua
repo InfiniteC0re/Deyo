@@ -27,10 +27,10 @@ project "Deyo"
 	includedirs
 	{
 		"src",
-		"vendor/spdlog/include",
-		"vendor/GLFW/include",
-		"vendor/GLAD/include",
-		"vendor/ImGui",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.GLAD}",
+		"%{IncludeDir.ImGui}",
 	}
 	
 	defines

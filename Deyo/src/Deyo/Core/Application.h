@@ -4,6 +4,7 @@
 #include <Deyo/Core/Window.h>
 #include <Deyo/Core/LayerStack.h>
 #include <Deyo/Events/ApplicationEvent.h>
+#include <Deyo/ImGui/ImGuiLayer.h>
 
 namespace Deyo
 {
@@ -61,6 +62,7 @@ namespace Deyo
 		static Application* s_Instance;
 
 		std::unique_ptr<IWindow> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
 	};

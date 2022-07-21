@@ -3,11 +3,6 @@
 
 namespace Deyo
 {
-	LayerStack::LayerStack()
-	{
-		m_LastLayer = m_Layers.begin();
-	}
-
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : *this) delete layer;
@@ -15,7 +10,8 @@ namespace Deyo
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LastLayer = m_Layers.emplace(m_LastLayer, layer);
+		m_Layers.emplace(m_Layers.begin() + m_LastLayerIndex, layer);
+		m_LastLayerIndex++;
 		layer->OnAttach();
 	}
 
@@ -32,7 +28,7 @@ namespace Deyo
 		if (res != m_Layers.end())
 		{
 			m_Layers.erase(res);
-			m_LastLayer--;
+			m_LastLayerIndex--;
 			
 			layer->OnDettach();
 		}

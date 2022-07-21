@@ -12,10 +12,14 @@ namespace Deyo
 		DEYO_API ImGuiLayer();
 		DEYO_API ~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDettach() override;
-		void OnUpdate() override;
-		void OnEvent(Event&) override;
+		virtual void OnAttach() override;
+		virtual void OnDettach() override;
+		//virtual void OnUpdate() override;
+		virtual void OnImGuiRender() override;
+		virtual void OnEvent(Event&) override;
+		
+		void Begin();
+		void End();
 
 		static void UpdateImGuiMods(int mods);
 		static int GetImGuiKey(int key);

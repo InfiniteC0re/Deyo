@@ -62,6 +62,7 @@ namespace Deyo
 			m_PosY(posY)
 		{ }
 
+		inline std::pair<float, float> GetPos() { return { m_PosX, m_PosY }; }
 		inline float GetPosX() { return m_PosX; }
 		inline float GetPosY() { return m_PosY; }
 

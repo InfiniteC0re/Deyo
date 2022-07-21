@@ -7,7 +7,6 @@ namespace Deyo
 	class LayerStack
 	{
 	public:
-		LayerStack();
 		~LayerStack();
 
 		// Pushes layer
@@ -25,8 +24,8 @@ namespace Deyo
 		std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
 		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 	private:
-		// using this to add layers always before overlays
-		std::vector<Layer*>::iterator m_LastLayer;
+		// we're using this to add layers always before overlays
+		uint32_t m_LastLayerIndex = 0;
 		std::vector<Layer*> m_Layers;
 	};
 }

@@ -1,4 +1,5 @@
 #include <Deyo.h>
+#include <imgui.h>
 
 enum Action_
 {
@@ -45,6 +46,13 @@ public:
 		});
 	}
 
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Button("Button 1");
+		ImGui::End();
+	}
+
 private:
 	bool m_LMBState = false;
 	bool m_RMBState = false;
@@ -59,11 +67,10 @@ public:
 		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_E);
 
 		// bind key F to action Use
-		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_R);
+		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_F);
 
 		// create layers
 		PushLayer(new TestLayer());
-		PushOverlay(new Deyo::ImGuiLayer());
 	}
 };
 

@@ -12,6 +12,7 @@ namespace Deyo
 		virtual void OnAttach() { };
 		virtual void OnDettach() { };
 		virtual void OnUpdate() { }
+		virtual void OnImGuiRender() { };
 		virtual void OnEvent(Event&) { };
 
 		inline bool GetAcceptEvents() { return m_AcceptEvents; }

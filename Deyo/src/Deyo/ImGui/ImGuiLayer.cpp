@@ -2,13 +2,15 @@
 #include "ImGuiLayer.h"
 
 #include <Deyo/Core/Application.h>
-#include "Platform/OpenGL/ImGui_Backend_OpenGL.h"
+
+#include <imgui.h>
+#include <backends/imgui_impl_opengl3.h>
 
 namespace Deyo
 {
 	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
 	{
-		m_Time = glfwGetTime();
+		m_Time = (float)glfwGetTime();
 	}
 
 	ImGuiLayer::~ImGuiLayer()
@@ -29,9 +31,12 @@ namespace Deyo
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-		// bacnend flags
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		// backend flags
+		io.ConfigFlags |= ImGuiBackendFlags_HasSetMousePos;
+		io.ConfigFlags |= ImGuiBackendFlags_HasMouseCursors;
+
+		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		ImGui::StyleColorsDark();
 		
 		// clipboard settings
 		io.SetClipboardTextFn = [](void* user_data, const char* str)
@@ -45,33 +50,58 @@ namespace Deyo
 		};
 
 		ImGui_ImplOpenGL3_Init("#version 410");
+
 	}
 
 	void ImGuiLayer::OnDettach()
 	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnUpdate()
+	void ImGuiLayer::Begin()
 	{
 		auto& io = ImGui::GetIO();
 
-		// display size
+		// update display size
 		auto& window = Application::Get().GetWindow();
 		io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
 
-		// delta time
+		// set UserData to have GLFWwindow
+		io.UserData = window.GetNativeWindow();
+
+		// update delta time
 		float time = glfwGetTime();
 		io.DeltaTime = time - m_Time;
 		m_Time = time;
 
+		// create frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui::NewFrame();
+	}
 
+	void ImGuiLayer::OnImGuiRender()
+	{
 		static bool showDemo = true;
 		ImGui::ShowDemoWindow(&showDemo);
+	}
 
+	void ImGuiLayer::End()
+	{
+		// rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+#if 0
+		// update platform if we are using viewports
+		auto& io = ImGui::GetIO();
+		
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
+#endif
 	}
 
 	void ImGuiLayer::OnEvent(Event& e)
@@ -182,7 +212,9 @@ namespace Deyo
 	bool ImGuiLayer::MouseMove(MouseMoveEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.AddMousePosEvent(e.GetPosX(), e.GetPosY());
+		auto [posX, posY] = e.GetPos();
+
+		io.AddMousePosEvent(posX, posY);
 		return io.WantCaptureMouse;
 	}
 

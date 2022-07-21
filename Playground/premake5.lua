@@ -20,8 +20,9 @@ project "Playground"
 
 	includedirs
 	{
-		"%{wks.location}/Deyo/vendor/spdlog/include",
-		"%{wks.location}/Deyo/src"
+		"%{wks.location}/Deyo/src",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	filter "system:windows"
