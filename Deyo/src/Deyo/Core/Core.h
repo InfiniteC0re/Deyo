@@ -12,10 +12,14 @@
 #endif
 
 #if defined(DEYO_PLATFORM_WINDOWS)
-	#if defined(DEYO_ENGINE)
-		#define DEYO_API __declspec(dllexport)
-	#else	
-		#define DEYO_API __declspec(dllimport)
+	#if DEYO_SHARED_LIB
+		#if defined(DEYO_ENGINE)
+			#define DEYO_API __declspec(dllexport)
+		#else
+			#define DEYO_API __declspec(dllimport)
+		#endif
+	#else
+		#define DEYO_API
 	#endif
 #else
 	#error Unsupported platform

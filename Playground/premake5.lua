@@ -2,6 +2,7 @@ project "Playground"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -22,14 +23,8 @@ project "Playground"
 		"%{wks.location}/Deyo/vendor/spdlog/include",
 		"%{wks.location}/Deyo/src"
 	}
-	
-	postbuildcommands
-	{
-		("{COPY} %{wks.location}/bin/" .. outputdir .. "/Deyo/Deyo.dll %{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
-	}
 
 	filter "system:windows"
-		staticruntime "Off"
 		systemversion "latest"
 
 		defines
