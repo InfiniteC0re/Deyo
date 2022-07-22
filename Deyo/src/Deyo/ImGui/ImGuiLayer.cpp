@@ -71,7 +71,7 @@ namespace Deyo
 		io.UserData = window.GetNativeWindow();
 
 		// update delta time
-		float time = glfwGetTime();
+		float time = (float)glfwGetTime();
 		io.DeltaTime = time - m_Time;
 		m_Time = time;
 
