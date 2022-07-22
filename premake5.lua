@@ -11,6 +11,7 @@ IncludeDir["spdlog"] = "%{wks.location}/Deyo/vendor/spdlog/include"
 IncludeDir["GLFW"] = "%{wks.location}/Deyo/vendor/GLFW/include"
 IncludeDir["GLAD"] = "%{wks.location}/Deyo/vendor/GLAD/include"
 IncludeDir["ImGui"] = "%{wks.location}/Deyo/vendor/ImGui"
+IncludeDir["GLM"] = "%{wks.location}/Deyo/vendor/GLM"
 
 -- the engine
 group "Core"

@@ -31,6 +31,7 @@ project "Deyo"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.GLM}"
 	}
 	
 	defines

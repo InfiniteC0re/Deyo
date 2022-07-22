@@ -21,7 +21,7 @@ namespace Deyo
 		// create window
 		m_Window = std::unique_ptr<IWindow>(WindowFactory::Create());
 		m_Window->SetEventCallback(DEYO_BIND_EVENT(Application::OnEvent));
-		
+
 		// ImGui and other layers
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
