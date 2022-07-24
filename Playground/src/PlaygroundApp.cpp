@@ -46,13 +46,6 @@ public:
 		});
 	}
 
-	void OnImGuiRender() override
-	{
-		ImGui::Begin("Test");
-		ImGui::Button("Button 1");
-		ImGui::End();
-	}
-
 private:
 	bool m_LMBState = false;
 	bool m_RMBState = false;

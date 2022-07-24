@@ -1,5 +1,6 @@
 #pragma once
 #include <Deyo/Core/Window.h>
+#include <Platform/OpenGL/OpenGLContext.h>
 
 struct GLFWwindow;
 
@@ -36,6 +37,7 @@ namespace Deyo
 		};
 
 	private:
+		GraphicsContext* m_Context;
 		GLFWwindow* m_Window;
 		WindowData m_Data;
 	};

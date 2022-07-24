@@ -67,7 +67,7 @@ namespace Deyo
 				const std::string& title = "Deyo Engine",
 				uint16_t width = 800,
 				uint16_t height = 600,
-				bool vsync = true
+				bool vsync = false
 			) : Title(title), Width(width), Height(height), VSync(vsync) { };
 		};
 

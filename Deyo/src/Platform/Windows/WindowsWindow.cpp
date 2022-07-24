@@ -37,14 +37,14 @@ namespace Deyo
 		}
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		DEYO_ASSERT(m_Window != nullptr, "glfwCreateWindow failed");
-
-		glfwMakeContextCurrent(m_Window);
-		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		DEYO_ASSERT(m_Window, "glfwCreateWindow failed");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
-		/* Binding events */
+		// setup context
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
+#pragma region GLFW Events Callbacks
 		// window close
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 		{
@@ -167,6 +167,8 @@ namespace Deyo
 			winData.EventCallback(evt);
 		});
 
+#pragma endregion
+
 		// Apply settings
 		SetVSync(m_Data.VSync);
 
@@ -181,8 +183,8 @@ namespace Deyo
 
 	void WindowsWindow::OnUpdate()
 	{
+		m_Context->SwapBuffers();
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
 	}
 
 	uint16_t WindowsWindow::GetWidth() const
@@ -219,6 +221,7 @@ namespace Deyo
 
 	void WindowsWindow::Terminate()
 	{
+		delete m_Context;
 		glfwDestroyWindow(m_Window);
 		s_WindowCount--;
 
