@@ -9,8 +9,8 @@ namespace Deyo
 	class ImGuiLayer : public Layer
 	{
 	public:
-		DEYO_API ImGuiLayer();
-		DEYO_API ~ImGuiLayer();
+		ImGuiLayer();
+		~ImGuiLayer();
 
 		virtual void OnAttach() override;
 		virtual void OnDettach() override;

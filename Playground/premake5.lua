@@ -22,7 +22,8 @@ project "Playground"
 	{
 		"%{wks.location}/Deyo/src",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.GLM}"
 	}
 
 	filter "system:windows"

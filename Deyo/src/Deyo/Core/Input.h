@@ -24,7 +24,7 @@ namespace Deyo
 		virtual float GetMouseYImpl() const = 0;
 
 	private:
-		static DEYO_API Input* s_Instance;
+		static Input* s_Instance;
 	};
 
 	// This has to be implemented in platform specific code

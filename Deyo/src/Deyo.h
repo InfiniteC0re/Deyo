@@ -14,6 +14,9 @@
 
 #include <Deyo/Events/Event.h>
 
+#include <Deyo/Renderer/RenderCommand.h>
+#include <Deyo/Renderer/VertexArray.h>
+
 #include <Deyo/ImGui/ImGuiLayer.h>
 
 // Entry point

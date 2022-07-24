@@ -1,5 +1,29 @@
 #pragma once
+#include <memory>
 
+// custom defines
+namespace Deyo
+{
+	template <typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template <typename T>
+	using Scope = std::unique_ptr<T>;
+	
+	template <typename T, typename ... Args>
+	constexpr Ref<T> CreateRef(Args&& ... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
+
+	template <typename T, typename ... Args>
+	constexpr Scope<T> CreateScope(Args&& ... args)
+	{
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
+}
+
+// macros
 #if defined(DEYO_DEBUG)
 	#if defined(DEYO_PLATFORM_WINDOWS)
 		#define DEYO_BREAK() __debugbreak()
@@ -11,17 +35,7 @@
 	#define DEYO_BREAK() 
 #endif
 
-#if defined(DEYO_PLATFORM_WINDOWS)
-	#if DEYO_SHARED_LIB
-		#if defined(DEYO_ENGINE)
-			#define DEYO_API __declspec(dllexport)
-		#else
-			#define DEYO_API __declspec(dllimport)
-		#endif
-	#else
-		#define DEYO_API
-	#endif
-#else
+#ifndef DEYO_PLATFORM_WINDOWS
 	#error Unsupported platform
 #endif
 

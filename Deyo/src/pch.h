@@ -21,6 +21,7 @@
 #include <GLFW/glfw3.h>
 
 // Deyo headers
+#include <Deyo/Core/Core.h>
 #include <Deyo/Core/Log.h>
 
 // Platform specific headers

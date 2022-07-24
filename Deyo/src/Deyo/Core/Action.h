@@ -50,11 +50,12 @@ namespace Deyo
 	class ActionList
 	{
 	public:
+		ActionList() = default;
 		inline static void BindKey(ActionSlot slot, Key key) { s_Instance->m_ActionKeys[slot].push_back(key); };
 		inline static ActionSlot GetSlot(Key key) { return s_Instance->GetSlot_Impl(key); };
 	
 	private:
-		DEYO_API ActionSlot GetSlot_Impl(Key key) const
+		ActionSlot GetSlot_Impl(Key key) const
 		{
 			for (ActionSlot i = 0; i < ActionSlot_Count; i++)
 			{
@@ -67,7 +68,7 @@ namespace Deyo
 		}
 
 	private:
-		static DEYO_API std::unique_ptr<ActionList> s_Instance;
+		static Scope<ActionList> s_Instance;
 		std::vector<Key> m_ActionKeys[ActionSlot_Count];
 	};
 }

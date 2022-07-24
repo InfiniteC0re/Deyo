@@ -3,6 +3,8 @@
 
 #include <Deyo/Core/Input.h>
 #include <Deyo/Events/ApplicationEvent.h>
+#include <Deyo/Renderer/VertexArray.h>
+#include <Deyo/Renderer/RenderCommand.h>
 
 namespace Deyo
 {
@@ -14,38 +16,17 @@ namespace Deyo
 	{
 		DEYO_ASSERT(s_Instance == nullptr, "Why are you are making a second application?");
 		s_Instance = this;
-		
+
 		// create Input instance
 		Input::Create();
 
 		// create window
-		m_Window = std::unique_ptr<IWindow>(WindowFactory::Create());
+		m_Window = Scope<IWindow>(WindowFactory::Create());
 		m_Window->SetEventCallback(DEYO_BIND_EVENT(Application::OnEvent));
 
 		// ImGui and other layers
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
-		// drawing our triangle
-		GLuint vertexArray = 0;
-		GLuint bufferArray = 0;
-		
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
-
-		glGenBuffers(1, &bufferArray);
-		glBindBuffer(GL_ARRAY_BUFFER, bufferArray);
-
-		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f,
-		};
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(float) * 3, nullptr);
 	}
 
 	Application::~Application()
@@ -59,10 +40,8 @@ namespace Deyo
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
 
 			// update layers
 			for (Layer* layer : m_LayerStack) { layer->OnUpdate(); }

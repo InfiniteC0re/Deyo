@@ -3,6 +3,7 @@
 
 #include <Deyo/Core/Window.h>
 #include <Deyo/Core/LayerStack.h>
+
 #include <Deyo/Events/ApplicationEvent.h>
 #include <Deyo/ImGui/ImGuiLayer.h>
 
@@ -13,26 +14,26 @@ namespace Deyo
 	class Application
 	{
 	public:
-		DEYO_API Application();
-		DEYO_API virtual ~Application();
+		Application();
+		virtual ~Application();
 
 		// Runs loop
-		DEYO_API void Run();
+		void Run();
 
 		// Call it when you want to exit
-		inline DEYO_API void Close() { m_Running = false; }
+		inline void Close() { m_Running = false; }
 
 		// Pushes layer to layer stack
-		inline DEYO_API void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+		inline void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
 
 		// Pushes overlay to layer stack
-		inline DEYO_API void PushOverlay(Layer* overlay) { m_LayerStack.PushOverlay(overlay); }
+		inline void PushOverlay(Layer* overlay) { m_LayerStack.PushOverlay(overlay); }
 
 		// Pops layer from layer stack
-		inline DEYO_API void PopLayer(Layer* layer) { m_LayerStack.PopLayer(layer); }
+		inline void PopLayer(Layer* layer) { m_LayerStack.PopLayer(layer); }
 
 		// Pops overlay from layer stack
-		inline DEYO_API void PopOverlay(Layer* overlay) { m_LayerStack.PopLayer(overlay); }
+		inline void PopOverlay(Layer* overlay) { m_LayerStack.PopLayer(overlay); }
 
 		// Returns application instance (reference)
 		static inline Application& Get() { return *s_Instance; }
@@ -61,7 +62,7 @@ namespace Deyo
 	private:
 		static Application* s_Instance;
 
-		std::unique_ptr<IWindow> m_Window;
+		Scope<IWindow> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 		bool m_Running = true;

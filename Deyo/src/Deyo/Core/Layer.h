@@ -6,8 +6,8 @@ namespace Deyo
 	class Layer
 	{
 	public:
-		DEYO_API Layer(const std::string& name = "Layer");
-		DEYO_API virtual ~Layer();
+		Layer(const std::string& name = "Layer");
+		virtual ~Layer();
 
 		virtual void OnAttach() { };
 		virtual void OnDettach() { };

@@ -3,8 +3,8 @@
 
 namespace Deyo
 {
-	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-	std::shared_ptr<spdlog::logger> Log::s_AppLogger;
+	Ref<spdlog::logger> Log::s_CoreLogger;
+	Ref<spdlog::logger> Log::s_AppLogger;
 
 	void Log::Init()
 	{
