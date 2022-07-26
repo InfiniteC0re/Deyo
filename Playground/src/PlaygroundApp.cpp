@@ -6,6 +6,9 @@ enum Action_
 	Action_Use = Deyo::ActionSlot_0
 };
 
+constexpr glm::vec4 TriangleColor{ 0.3f, 0.2f, 0.8f, 1.0f };
+constexpr glm::vec4 TriangleColorPressed{ 0.8f, 0.2f, 0.3f, 1.0f };
+
 class TestLayer : public Deyo::Layer
 {
 public:
@@ -39,21 +42,27 @@ public:
 		m_Shader = Deyo::Shader::Create("assets/shaders/test.shader");
 
 		m_Shader->Bind();
-		m_Shader->SetVec4("u_Color", glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
+		m_Shader->SetVec4("u_Color", TriangleColor);
 	}
 
 	void OnUpdate() override
 	{
-		// Draw triangle if LMB is pressed
-		if (m_LMBState)
-		{
-			Deyo::RenderCommand::DrawIndexed(m_Triangle, 3);
-		}
+		Deyo::RenderCommand::DrawIndexed(m_Triangle, 3);
 
 		// LMB state switcher
 		if (m_LMBState != Deyo::Input::IsMouseButtonPressed(0))
 		{
 			m_LMBState = !m_LMBState;
+
+			if (m_LMBState)
+			{
+				m_Shader->SetVec4("u_Color", TriangleColorPressed);
+			}
+			else
+			{
+				m_Shader->SetVec4("u_Color", TriangleColor);
+			}
+
 			DEYO_INFO("LMB state has changed");
 		}
 

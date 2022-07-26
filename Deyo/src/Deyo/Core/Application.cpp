@@ -62,6 +62,7 @@ namespace Deyo
 	{
 		EventDispatcher dispatcher(evt);
 		dispatcher.Dispatch<WindowCloseEvent>(DEYO_BIND_EVENT(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(DEYO_BIND_EVENT(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -80,6 +81,7 @@ namespace Deyo
 
 	bool Application::OnWindowResize(WindowResizeEvent& evt)
 	{
+		RenderCommand::SetViewport(0, 0, evt.GetWidth(), evt.GetHeight());
 		return true;
 	}
 }
