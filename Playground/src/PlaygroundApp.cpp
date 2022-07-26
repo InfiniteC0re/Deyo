@@ -34,12 +34,21 @@ public:
 		m_Triangle->Bind();
 
 		m_Triangle->SetIndexBuffer(indexBuffer);
+
+		// shader
+		m_Shader = Deyo::Shader::Create("assets/shaders/test.shader");
+
+		m_Shader->Bind();
+		m_Shader->SetVec4("u_Color", glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
 	}
 
 	void OnUpdate() override
 	{
 		// Draw triangle if LMB is pressed
-		if (m_LMBState) { Deyo::RenderCommand::DrawIndexed(m_Triangle, 3); }
+		if (m_LMBState)
+		{
+			Deyo::RenderCommand::DrawIndexed(m_Triangle, 3);
+		}
 
 		// LMB state switcher
 		if (m_LMBState != Deyo::Input::IsMouseButtonPressed(0))
@@ -79,6 +88,7 @@ public:
 	}
 
 private:
+	Deyo::Ref<Deyo::Shader> m_Shader;
 	Deyo::Ref<Deyo::VertexArray> m_Triangle;
 	bool m_LMBState = false;
 	bool m_RMBState = false;

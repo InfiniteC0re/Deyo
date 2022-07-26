@@ -6,7 +6,7 @@
 
 namespace Deyo
 {
-	Deyo::Ref<Deyo::VertexArray> VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{

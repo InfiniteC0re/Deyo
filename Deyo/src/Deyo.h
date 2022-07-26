@@ -16,6 +16,7 @@
 
 #include <Deyo/Renderer/RenderCommand.h>
 #include <Deyo/Renderer/VertexArray.h>
+#include <Deyo/Renderer/Shader.h>
 
 #include <Deyo/ImGui/ImGuiLayer.h>
 

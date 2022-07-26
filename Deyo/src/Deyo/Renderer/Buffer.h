@@ -21,7 +21,7 @@ namespace Deyo
 		Float4	 = 0x00100404,
 		Mat3	 = 0x00240503,
 		Mat4	 = 0x00400604,
-		Int		 = 0x00040701,
+		Int      = 0x00040701,
 		Int2	 = 0x00080802,
 		Int3	 = 0x000C0903,
 		Int4	 = 0x00100A04,

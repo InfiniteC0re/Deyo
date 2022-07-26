@@ -10,6 +10,8 @@
 
 // Types
 #include <vector>
+#include <set>
+#include <map>
 #include <unordered_set>
 #include <unordered_map>
 // these two are some parts of <functional> or it's dependencies
