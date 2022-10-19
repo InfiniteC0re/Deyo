@@ -37,7 +37,8 @@ project "Deyo"
 	defines
 	{
 		"DEYO_ENGINE",
-		"GLFW_INCLUDE_NONE"
+		"GLFW_INCLUDE_NONE",
+		"SPDLOG_WCHAR_TO_UTF8_SUPPORT"
 	}
 
 	filter "system:windows"

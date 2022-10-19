@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 {
 	// initialize log system
 	Deyo::Log::Init();
+	Deyo::FileManager::Instance().MountFileSystem(Deyo::FileSystem::Create("global"));
 
 	DEYO_CORE_INFO("Initialized log system");
 	DEYO_CORE_INFO("Welcome to the Deyo Engine");

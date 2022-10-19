@@ -20,5 +20,8 @@
 
 #include <Deyo/ImGui/ImGuiLayer.h>
 
+#include <Deyo/FileSystem/FileManager.h>
+#include <Deyo/FileSystem/FileSystem.h>
+
 // Entry point
 #include <Deyo/Core/EntryPoint.h>

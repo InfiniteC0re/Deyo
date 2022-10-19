@@ -3,7 +3,7 @@
 // Functionality
 #include <iostream>
 #include <utility>
-#include <memory>
+#include <memory>	
 #include <algorithm>
 #include <functional>
 #include <type_traits>
@@ -14,9 +14,6 @@
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
-// these two are some parts of <functional> or it's dependencies
-// #include <cstdint>
-// #include <string>
 
 // Libraries
 #include <glad/glad.h>
@@ -25,8 +22,5 @@
 // Deyo headers
 #include <Deyo/Core/Core.h>
 #include <Deyo/Core/Log.h>
-
-// Platform specific headers
-#ifdef DEYO_PLATFORM_WINDOWS
-	#include <Windows.h>
-#endif
+#include <Deyo/FileSystem/FileManager.h>
+#include <Deyo/FileSystem/FileSystem.h>
