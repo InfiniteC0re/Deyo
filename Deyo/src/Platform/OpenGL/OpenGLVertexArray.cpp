@@ -88,6 +88,5 @@ namespace Deyo
 	{
 		return m_IndexBuffer;
 	}
-
 }
 

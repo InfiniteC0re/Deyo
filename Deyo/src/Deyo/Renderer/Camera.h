@@ -1,8 +1,7 @@
 #pragma once
 #include "Deyo/Core/Core.h"
 
-#include <glm/matrix.hpp>
-#include <glm/gtx/quaternion.hpp>
+#include "Deyo/Math/Types.h"
 
 namespace Deyo
 {
@@ -17,8 +16,8 @@ namespace Deyo
 	public:
 		Camera(float aspectRatio = 16.0f / 9.0f)
 		{
-			SetPosition(glm::vec3(0, 0, 0));
-			SetRotation(glm::vec3(0, 0, 0));
+			SetPosition(Vector3(0, 0, 0));
+			SetRotation(Vector3(0, 0, 0));
 			SetPerspectiveSettings(45.0f, aspectRatio, 0.1f, 200.0f);
 			SetOrthographicSettings(-1.0f, 1.0f, -1.0f, 1.0f);
 			SetCameraMode(Mode::Perspective);
@@ -41,63 +40,79 @@ namespace Deyo
 
 		void SetFOV(float fov)
 		{
-			m_FOV = fov;
-			m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			if (m_FOV != fov)
+			{
+				m_FOV = fov;
+				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			}
 		}
 
 		void SetAspectRatio(float aspectRatio)
 		{
-			m_AspectRatio = aspectRatio;
-			m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			if (m_AspectRatio != aspectRatio)
+			{
+				m_AspectRatio = aspectRatio;
+				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			}
 		}
 
 		void SetNearClip(float nearClip)
 		{
-			m_NearClip = nearClip;
-			m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			if (m_NearClip != nearClip)
+			{
+				m_NearClip = nearClip;
+				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			}
 		}
 
 		void SetFarClip(float farClip)
 		{
-			m_FarClip = farClip;
-			m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			if (m_FarClip != farClip)
+			{
+				m_FarClip = farClip;
+				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
+			}
 		}
 
-		void SetPosition(const glm::vec3& position)
+		void SetPosition(const Vector3& position)
 		{
-			bool changed = m_Position != position;
-			m_Position = position;
-			m_IsViewDirty = changed;
+			if (m_Position != position)
+			{
+				m_Position = position;
+				m_IsViewDirty = true;
+			}
 		}
 
-		void SetRotation(const glm::quat& rotation)
+		void SetRotation(const Quaternion& rotation)
 		{
-			bool changed = m_Rotation != rotation;
-			m_Rotation = rotation;
-			m_IsViewDirty = changed;
+			if (m_Rotation != rotation)
+			{
+				m_Rotation = rotation;
+				m_IsViewDirty = true;
+			}
 		}
 
-		const glm::vec3& GetPosition() const
+		const Vector3& GetPosition() const
 		{
 			return m_Position;
 		}
 
-		const glm::quat& GetRotation() const
+		const Quaternion& GetRotation() const
 		{
 			return m_Rotation;
 		}
 
-		const glm::mat4& GetViewMatrix() const
+		const Matrix4& GetViewMatrix() const
 		{
 			return m_View;
 		}
 
-		const glm::mat4& GetProjectionMatrix() const
+		const Matrix4& GetProjectionMatrix() const
 		{
 			return m_Projection;
 		}
 
-		const glm::mat4& GetViewProjectionMatrix() const
+		const Matrix4& GetViewProjectionMatrix() const
 		{
 			return m_ViewProjection;
 		}
@@ -109,11 +124,11 @@ namespace Deyo
 
 	private:
 		Mode m_Mode;
-		glm::mat4 m_View;
-		glm::mat4 m_Projection;
-		glm::mat4 m_ViewProjection;
-		glm::vec3 m_Position;
-		glm::quat m_Rotation;
+		Matrix4 m_View;
+		Matrix4 m_Projection;
+		Matrix4 m_ViewProjection;
+		Vector3 m_Position;
+		Quaternion m_Rotation;
 		
 		// Perspective camera
 		float m_FOV;

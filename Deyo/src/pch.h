@@ -22,5 +22,8 @@
 // Deyo headers
 #include <Deyo/Core/Core.h>
 #include <Deyo/Core/Log.h>
+
+#include <Deyo/Math/Types.h>
+
 #include <Deyo/FileSystem/FileManager.h>
 #include <Deyo/FileSystem/FileSystem.h>

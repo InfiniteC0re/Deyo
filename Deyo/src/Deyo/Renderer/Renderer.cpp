@@ -4,18 +4,6 @@
 
 namespace Deyo
 {
-	void Renderer::BeginScene()
-	{
-
-	}
-
-	void Renderer::EndScene()
-	{
-
-	}
-
-	void Renderer::Submit(const Ref<VertexArray>& vertexArray)
-	{
-		RenderCommand::DrawIndexed(vertexArray);
-	}
+	bool Renderer::s_IsInScene = false;
+	Matrix4 Renderer::s_ViewProjectionMatrix = Matrix4(1.0f);
 }

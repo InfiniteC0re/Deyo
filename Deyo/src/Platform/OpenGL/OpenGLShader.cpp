@@ -192,31 +192,31 @@ namespace Deyo
 		glUniform1f(location, value);
 	}
 
-	void OpenGLShader::SetVec2(const std::string& name, const glm::vec2& value)
+	void OpenGLShader::SetVec2(const std::string& name, const Vector2& value)
 	{
 		GLuint location = glGetUniformLocation(m_ProgramId, name.c_str());
 		glUniform2f(location, value.x, value.y);
 	}
 
-	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value)
+	void OpenGLShader::SetVec3(const std::string& name, const Vector3& value)
 	{
 		GLuint location = glGetUniformLocation(m_ProgramId, name.c_str());
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
-	void OpenGLShader::SetVec4(const std::string& name, const glm::vec4& value)
+	void OpenGLShader::SetVec4(const std::string& name, const Vector4& value)
 	{
 		GLuint location = glGetUniformLocation(m_ProgramId, name.c_str());
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
-	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value)
+	void OpenGLShader::SetMat3(const std::string& name, const Matrix3& value)
 	{
 		GLuint location = glGetUniformLocation(m_ProgramId, name.c_str());
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 
-	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+	void OpenGLShader::SetMat4(const std::string& name, const Matrix4& value)
 	{
 		GLuint location = glGetUniformLocation(m_ProgramId, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));

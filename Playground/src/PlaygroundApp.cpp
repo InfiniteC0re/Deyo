@@ -1,6 +1,4 @@
 #include <Deyo.h>
-#include <Deyo/Renderer/Renderer.h>
-#include <Deyo/Renderer/Camera.h>
 
 #include <imgui.h>
 
@@ -8,9 +6,6 @@ enum Action_
 {
 	Action_Use = Deyo::ActionSlot_0
 };
-
-constexpr glm::vec4 TriangleColor{ 0.3f, 0.2f, 0.8f, 1.0f };
-constexpr glm::vec4 TriangleColorPressed{ 0.8f, 0.2f, 0.3f, 1.0f };
 
 void embraceTheDarkness()
 {
@@ -99,6 +94,10 @@ void embraceTheDarkness()
 class TestLayer : public Deyo::Layer
 {
 public:
+	static constexpr glm::vec4 TriangleColor        { 0.3f, 0.2f, 0.8f, 1.0f };
+	static constexpr glm::vec4 TriangleColorPressed { 0.8f, 0.2f, 0.3f, 1.0f };
+
+public:
 	TestLayer()
 	{
 		// Triangle
@@ -108,27 +107,22 @@ public:
 			0.0f, 0.5f, 0.0f,
 		};
 
-		uint32_t indices[] = {
-			0, 1, 2
-		};
+		uint32_t indices[] = { 0, 1, 2 };
 
-		m_CameraPosition = glm::vec3(0, 0, 1.0f);
+		m_CameraPosition = glm::vec3(0.0f, 0.0f, 1.0f);
 
-		m_Triangle = Deyo::VertexArray::Create();
+		auto& vertexArray = m_Triangle.GetVertexArray();
 		auto vertexBuffer = Deyo::VertexBuffer::Create(sizeof(vertices));
-		auto indexBuffer = Deyo::IndexBuffer::Create(indices, 3);
-		
-		Deyo::BufferElement vertexElement(Deyo::ShaderDataType::Float3, false);
-		vertexBuffer->SetLayout({ vertexElement });
+
 		vertexBuffer->SetData(vertices, sizeof(vertices));
-
-		m_Triangle->AddVertexBuffer(vertexBuffer);
-		m_Triangle->SetIndexBuffer(indexBuffer);
-
-		m_Shader = Deyo::Shader::Create("assets/shaders/test.shader");
+		vertexBuffer->SetLayout({ { Deyo::ShaderDataType::Float3, false } });
+		vertexArray->AddVertexBuffer(vertexBuffer);
+		vertexArray->SetIndexBuffer(Deyo::IndexBuffer::Create(indices, 3));
 		
-		m_Shader->Bind();
-		m_Shader->SetVec4("u_Color", TriangleColor);
+		m_Triangle.SetShader(Deyo::Shader::Create("assets/shaders/test.shader"));
+
+		m_Triangle.GetShader()->Bind();
+		m_Triangle.GetShader()->SetVec4("u_Color", TriangleColor);
 
 		m_Camera.SetCameraMode(Deyo::Camera::Mode::Perspective);
 		m_Camera.SetAspectRatio(800.0f / 600.0f);
@@ -138,29 +132,20 @@ public:
 
 	void OnUpdate() override
 	{
+		static float s_Angle = 0.0f;
+		float scale = abs(sin(s_Angle)) / 2;
+
+		m_Triangle.GetTransformObject().SetScale(0.5 + scale);
 		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.Update();
 
-		m_Shader->Bind();
-		m_Shader->SetMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
+		Deyo::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		Deyo::RenderCommand::Clear();
 
+		Deyo::Renderer::BeginScene(m_Camera);
 		Deyo::Renderer::Submit(m_Triangle);
+		Deyo::Renderer::EndScene();
 
-		// LMB state switcher
-		if (m_LMBState != Deyo::Input::IsMouseButtonPressed(0))
-		{
-			m_LMBState = !m_LMBState;
-			m_Shader->SetVec4("u_Color", m_LMBState ? TriangleColorPressed : TriangleColor);
-
-			DEYO_INFO("LMB state has changed");
-		}
-
-		// RMB state switcher
-		if (m_RMBState != Deyo::Input::IsMouseButtonPressed(1))
-		{
-			m_RMBState = !m_RMBState;
-			DEYO_INFO("RMB state has changed");
-		}
+		s_Angle += 0.0005;
 	}
 
 	void OnEvent(Deyo::Event& e) override
@@ -186,16 +171,6 @@ public:
 				m_CameraPosition.z += 0.01f;
 				break;
 			}
-
-			//switch (Deyo::ActionList::GetSlot(keyCode))
-			//{
-			//case Action_Use:
-			//	DEYO_INFO("Use");
-			//	break;
-			//default:
-			//	DEYO_INFO("Unknown action");
-			//	break;
-			//}
 			
 			return true;
 		});
@@ -204,10 +179,7 @@ public:
 private:
 	Deyo::Camera m_Camera;
 	glm::vec3 m_CameraPosition;
-	Deyo::Ref<Deyo::Shader> m_Shader;
-	Deyo::Ref<Deyo::VertexArray> m_Triangle;
-	bool m_LMBState = false;
-	bool m_RMBState = false;
+	Deyo::Mesh m_Triangle;
 };
 
 class PlaygroundApp : public Deyo::Application
@@ -215,13 +187,6 @@ class PlaygroundApp : public Deyo::Application
 public:
 	PlaygroundApp()
 	{
-		// Bind E key to action Use
-		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_E);
-
-		// Bind F key to action Use
-		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_F);
-
-		// Create layers
 		PushLayer(new TestLayer());
 	}
 };
