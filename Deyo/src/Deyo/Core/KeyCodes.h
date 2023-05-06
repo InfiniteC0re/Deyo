@@ -5,7 +5,7 @@ namespace Deyo
 {
 	using Key = uint16_t;
 
-	enum : Key
+	enum DEYO_KEY : Key
 	{
 		DEYO_KEY_SPACE              = 32,
 		DEYO_KEY_APOSTROPHE         = 39,  /* ' */

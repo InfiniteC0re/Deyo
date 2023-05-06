@@ -1,16 +1,15 @@
 #include "pch.h"
 #include "Application.h"
 
-#include <Deyo/Core/Input.h>
-#include <Deyo/Events/ApplicationEvent.h>
-#include <Deyo/Renderer/VertexArray.h>
-#include <Deyo/Renderer/RenderCommand.h>
+#include "Deyo/Core/Input.h"
+#include "Deyo/Events/ApplicationEvent.h"
+#include "Deyo/Renderer/Renderer.h"
+#include "Deyo/Renderer/VertexArray.h"
+#include "Deyo/Renderer/RenderCommand.h"
 
 namespace Deyo
 {
 	Application* Application::s_Instance = nullptr;
-
-	/* Constructor & destructor */
 
 	Application::Application()
 	{
@@ -34,8 +33,6 @@ namespace Deyo
 		Close();
 	}
 
-	/* Methods */
-
 	void Application::Run()
 	{
 		while (m_Running)
@@ -43,7 +40,7 @@ namespace Deyo
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
 
-			// update layers
+			// Update layers
 			for (Layer* layer : m_LayerStack) { layer->OnUpdate(); }
 
 			// ImGui layers
@@ -51,12 +48,10 @@ namespace Deyo
 			for (Layer* layer : m_LayerStack) { layer->OnImGuiRender(); }
 			m_ImGuiLayer->End();
 
-			// update the windows
+			// Update the windows
 			m_Window->OnUpdate();
 		}
 	}
-
-	/* Events */
 
 	void Application::OnEvent(Event& evt)
 	{

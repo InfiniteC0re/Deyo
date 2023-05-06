@@ -10,10 +10,10 @@ namespace Deyo
 		protected:
 			Node() { Reset(); }
 
-			inline Node* Next() const { return m_Next; }
-			inline Node* Prev() const { return m_Prev; }
-			inline bool IsLinked() const { return this != m_Next; }
-			inline void Reset() { m_Next = this; m_Prev = this; }
+			Node* Next() const { return m_Next; }
+			Node* Prev() const { return m_Prev; }
+			bool IsLinked() const { return this != m_Next; }
+			void Reset() { m_Next = this; m_Prev = this; }
 
 			void InsertAfter(Node* node)
 			{
@@ -61,15 +61,15 @@ namespace Deyo
 		};
 
 	public:
-		inline void InsertHead(Node* node) { node->InsertAfter(&m_Root); }
-		inline void InsertTail(Node* node) { node->InsertBefore(&m_Root); }
-		inline void RemoveHead()            { if (!IsEmpty()) m_Root.Next()->Remove(); }
-		inline void RemoveTail()            { if (!IsEmpty()) m_Root.Prev()->Remove(); }
-		inline bool IsEmpty()               { return m_Root.Next() == &m_Root; }
-		inline Node* Head()                { return m_Root.Next(); }
-		inline Node* Tail()                { return m_Root.Prev(); }
-		inline Node* Begin()               { return m_Root.Next(); }
-		inline Node* End()                 { return &m_Root; }
+		void InsertHead(Node* node) { node->InsertAfter(&m_Root); }
+		void InsertTail(Node* node) { node->InsertBefore(&m_Root); }
+		void RemoveHead()            { if (!IsEmpty()) m_Root.Next()->Remove(); }
+		void RemoveTail()            { if (!IsEmpty()) m_Root.Prev()->Remove(); }
+		bool IsEmpty()               { return m_Root.Next() == &m_Root; }
+		Node* Head()                { return m_Root.Next(); }
+		Node* Tail()                { return m_Root.Prev(); }
+		Node* Begin()               { return m_Root.Next(); }
+		Node* End()                 { return &m_Root; }
 
 		void RemoveAll()
 		{

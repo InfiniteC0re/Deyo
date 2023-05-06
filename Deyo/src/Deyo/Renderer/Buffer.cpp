@@ -11,8 +11,7 @@ namespace Deyo
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			if (size > 0) { return CreateRef<OpenGLVertexBuffer>(size); }
-			else { return CreateRef<OpenGLVertexBuffer>(); }
+			return (size > 0) ? CreateRef<OpenGLVertexBuffer>(size) : CreateRef<OpenGLVertexBuffer>();
 			break;
 		default:
 			DEYO_ASSERT(false, "Unsupported Renderer API");

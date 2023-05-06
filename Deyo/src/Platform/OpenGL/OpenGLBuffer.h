@@ -11,10 +11,7 @@ namespace Deyo
 		OpenGLVertexBuffer(const void* data, uint32_t size);
 		~OpenGLVertexBuffer();
 
-		// Updates sub data
 		virtual void SetData(const void* data, uint32_t size) override;
-		
-		// Updates whole data
 		virtual void SetData(const void* data, uint32_t offset, uint32_t size) override;
 
 		virtual void Bind() const override;

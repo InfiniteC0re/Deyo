@@ -90,10 +90,7 @@ namespace Deyo
 	public:
 		virtual ~VertexBuffer() = default;
 
-		// Updates sub data
 		virtual void SetData(const void* data, uint32_t offset, uint32_t dataSize) = 0;
-
-		// Updates whole data
 		virtual void SetData(const void* data, uint32_t dataSize) = 0;
 
 		virtual void Bind() const = 0;

@@ -45,4 +45,5 @@ namespace Deyo
 	#define DEYO_ASSERT(x, ...)
 #endif
 
+#define DEYO_TODO(...) { DEYO_CORE_ERROR(__VA_ARGS__); }
 #define BIT(x) (1 << x)

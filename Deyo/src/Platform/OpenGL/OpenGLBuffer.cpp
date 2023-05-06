@@ -73,6 +73,7 @@ namespace Deyo
 		glGenBuffers(1, &m_Id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * count, indices, GL_STATIC_DRAW);
+		m_Count = count;
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()

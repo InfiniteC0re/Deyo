@@ -14,6 +14,6 @@ namespace Deyo
 		void SetClearColor(const glm::vec4& color) override;
 
 		void DrawArrays(const Ref<VertexArray>& vertexArray, uint32_t count) override;
-		void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count) override;
+		void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) override;
 	};
 }

@@ -1,4 +1,7 @@
 #include <Deyo.h>
+#include <Deyo/Renderer/Renderer.h>
+#include <Deyo/Renderer/Camera.h>
+
 #include <imgui.h>
 
 enum Action_
@@ -109,45 +112,45 @@ public:
 			0, 1, 2
 		};
 
+		m_CameraPosition = glm::vec3(0, 0, 1.0f);
+
 		m_Triangle = Deyo::VertexArray::Create();
 		auto vertexBuffer = Deyo::VertexBuffer::Create(sizeof(vertices));
 		auto indexBuffer = Deyo::IndexBuffer::Create(indices, 3);
-
+		
 		Deyo::BufferElement vertexElement(Deyo::ShaderDataType::Float3, false);
 		vertexBuffer->SetLayout({ vertexElement });
 		vertexBuffer->SetData(vertices, sizeof(vertices));
 
 		m_Triangle->AddVertexBuffer(vertexBuffer);
-		m_Triangle->Bind();
-
 		m_Triangle->SetIndexBuffer(indexBuffer);
 
-		// shader
 		m_Shader = Deyo::Shader::Create("assets/shaders/test.shader");
-
+		
 		m_Shader->Bind();
 		m_Shader->SetVec4("u_Color", TriangleColor);
+
+		m_Camera.SetCameraMode(Deyo::Camera::Mode::Perspective);
+		m_Camera.SetAspectRatio(800.0f / 600.0f);
 		
 		embraceTheDarkness();
 	}
 
 	void OnUpdate() override
 	{
-		Deyo::RenderCommand::DrawIndexed(m_Triangle, 3);
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.Update();
+
+		m_Shader->Bind();
+		m_Shader->SetMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
+
+		Deyo::Renderer::Submit(m_Triangle);
 
 		// LMB state switcher
 		if (m_LMBState != Deyo::Input::IsMouseButtonPressed(0))
 		{
 			m_LMBState = !m_LMBState;
-
-			if (m_LMBState)
-			{
-				m_Shader->SetVec4("u_Color", TriangleColorPressed);
-			}
-			else
-			{
-				m_Shader->SetVec4("u_Color", TriangleColor);
-			}
+			m_Shader->SetVec4("u_Color", m_LMBState ? TriangleColorPressed : TriangleColor);
 
 			DEYO_INFO("LMB state has changed");
 		}
@@ -166,23 +169,41 @@ public:
 
 		dispatcher.Dispatch<Deyo::KeyPressEvent>([&](Deyo::KeyPressEvent& evt) -> bool
 		{
-			Deyo::ActionSlot slot = Deyo::ActionList::GetSlot(evt.GetKeyCode());
+			auto keyCode = evt.GetKeyCode();
 
-			switch (slot)
+			switch (keyCode)
 			{
-			case Action_Use:
-				DEYO_INFO("Use");
+			case Deyo::DEYO_KEY_A:
+				m_CameraPosition.x -= 0.01f;
 				break;
-			default:
-				DEYO_INFO("Unknown action");
+			case Deyo::DEYO_KEY_D:
+				m_CameraPosition.x += 0.01f;
+				break;
+			case Deyo::DEYO_KEY_W:
+				m_CameraPosition.z -= 0.01f;
+				break;
+			case Deyo::DEYO_KEY_S:
+				m_CameraPosition.z += 0.01f;
 				break;
 			}
+
+			//switch (Deyo::ActionList::GetSlot(keyCode))
+			//{
+			//case Action_Use:
+			//	DEYO_INFO("Use");
+			//	break;
+			//default:
+			//	DEYO_INFO("Unknown action");
+			//	break;
+			//}
 			
 			return true;
 		});
 	}
 
 private:
+	Deyo::Camera m_Camera;
+	glm::vec3 m_CameraPosition;
 	Deyo::Ref<Deyo::Shader> m_Shader;
 	Deyo::Ref<Deyo::VertexArray> m_Triangle;
 	bool m_LMBState = false;
@@ -194,13 +215,13 @@ class PlaygroundApp : public Deyo::Application
 public:
 	PlaygroundApp()
 	{
-		// bind key E to action Use
+		// Bind E key to action Use
 		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_E);
 
-		// bind key F to action Use
+		// Bind F key to action Use
 		Deyo::ActionList::BindKey(Action_Use, Deyo::DEYO_KEY_F);
 
-		// create layers
+		// Create layers
 		PushLayer(new TestLayer());
 	}
 };

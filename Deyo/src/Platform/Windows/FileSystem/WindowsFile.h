@@ -1,12 +1,13 @@
 #pragma once
 #include "Deyo/FileSystem/File.h"
 
-#define READ_BUFFER_SIZE 2048
-
 namespace Deyo
 {
 	class WindowsFile : public File
 	{
+	public:
+		static constexpr size_t READ_BUFFER_SIZE = 2048;
+
 	public:
 		WindowsFile(FileSystem* pFileSystem) : File(pFileSystem) { Reset(); }
 

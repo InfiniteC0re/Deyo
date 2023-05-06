@@ -3,5 +3,5 @@
 
 namespace Deyo
 {
-	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
+	RendererAPI* RenderCommand::s_RendererAPI = RendererAPI::Create();
 }

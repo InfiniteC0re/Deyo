@@ -7,7 +7,6 @@
 namespace Deyo
 {
 	using ActionSlot = int16_t;
-
 	enum ActionSlot_ : ActionSlot
 	{
 		ActionSlot_None = -1,
