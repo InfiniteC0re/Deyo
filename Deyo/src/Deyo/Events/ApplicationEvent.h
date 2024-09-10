@@ -10,8 +10,8 @@ namespace Deyo
 	public:
 		WindowCloseEvent() = default;
 
-		EVENT_TYPE(EventType::WindowClose)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::WindowClose )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 
 	class WindowFocusEvent : public Event
@@ -19,8 +19,8 @@ namespace Deyo
 	public:
 		WindowFocusEvent() = default;
 
-		EVENT_TYPE(EventType::WindowFocus)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::WindowFocus )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 
 	class WindowUnfocusEvent : public Event
@@ -28,20 +28,20 @@ namespace Deyo
 	public:
 		WindowUnfocusEvent() = default;
 
-		EVENT_TYPE(EventType::WindowUnfocus)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::WindowUnfocus )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 
 	class WindowResizeEvent : public Event
 	{
 	public:
-		WindowResizeEvent(uint16_t width, uint16_t height) : m_Width(width), m_Height(height) { };
+		WindowResizeEvent( uint16_t width, uint16_t height ) : m_Width( width ), m_Height( height ) { };
 
 		inline uint16_t GetWidth() { return m_Width; }
 		inline uint16_t GetHeight() { return m_Height; }
 
-		EVENT_TYPE(EventType::WindowResize)
-			EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::WindowResize )
+			EVENT_CATEGORY( EventCategoryApplication )
 
 	private:
 		uint16_t m_Width;
@@ -51,13 +51,13 @@ namespace Deyo
 	class WindowMoveEvent : public Event
 	{
 	public:
-		WindowMoveEvent(uint32_t posX, uint32_t posY) : m_PosX(posX), m_PosY(posY) { };
+		WindowMoveEvent( uint32_t posX, uint32_t posY ) : m_PosX( posX ), m_PosY( posY ) { };
 
 		inline uint32_t GetPositionX() { return m_PosX; }
 		inline uint32_t GetPositionY() { return m_PosY; }
 
-		EVENT_TYPE(EventType::WindowMove)
-			EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::WindowMove )
+			EVENT_CATEGORY( EventCategoryApplication )
 
 	private:
 		uint32_t m_PosX;
@@ -71,8 +71,8 @@ namespace Deyo
 	public:
 		AppRenderEvent() = default;
 
-		EVENT_TYPE(EventType::AppRender)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::AppRender )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 
 	class AppTickEvent : public Event
@@ -80,8 +80,8 @@ namespace Deyo
 	public:
 		AppTickEvent() = default;
 
-		EVENT_TYPE(EventType::AppTick)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::AppTick )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 
 	class AppUpdateEvent : public Event
@@ -89,7 +89,7 @@ namespace Deyo
 	public:
 		AppUpdateEvent() = default;
 
-		EVENT_TYPE(EventType::AppUpdate)
-		EVENT_CATEGORY(EventCategoryApplication)
+		EVENT_TYPE( EventType::AppUpdate )
+			EVENT_CATEGORY( EventCategoryApplication )
 	};
 }

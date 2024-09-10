@@ -9,19 +9,19 @@ namespace Deyo
 		static constexpr size_t READ_BUFFER_SIZE = 2048;
 
 	public:
-		WindowsFile(FileSystem* pFileSystem) : File(pFileSystem) { Reset(); }
+		WindowsFile( FileSystem* pFileSystem ) : File( pFileSystem ) { Reset(); }
 
 		~WindowsFile() { DestroyBuffer(); }
 
-		virtual bool Open(const std::wstring filepath, CreateFlags flags) override;
+		virtual bool Open( const std::wstring filepath, CreateFlags flags ) override;
 		virtual void Close() override;
-		virtual size_t Read(LPVOID dst, size_t size) override;
-		virtual size_t Write(LPVOID src, size_t size) override;
-		virtual bool Seek(SeekMode seekMode, size_t pos) override;
+		virtual size_t Read( LPVOID dst, size_t size ) override;
+		virtual size_t Write( LPVOID src, size_t size ) override;
+		virtual bool Seek( SeekMode seekMode, size_t pos ) override;
 		virtual size_t Tell() override;
 		virtual size_t Size() override;
 
-		bool UpdateReadBuffer(size_t bufferIndex);
+		bool UpdateReadBuffer( size_t bufferIndex );
 
 		void DestroyBuffer()
 		{
@@ -34,7 +34,7 @@ namespace Deyo
 		void CreateBuffer()
 		{
 			DestroyBuffer();
-			m_ReadBuffer = new char[READ_BUFFER_SIZE];
+			m_ReadBuffer = new char[ READ_BUFFER_SIZE ];
 		}
 
 		void Reset()

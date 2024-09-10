@@ -50,17 +50,17 @@ namespace Deyo
 	{
 	public:
 		ActionList() = default;
-		inline static void BindKey(ActionSlot slot, Key key) { s_Instance->m_ActionKeys[slot].push_back(key); };
-		inline static ActionSlot GetSlot(Key key) { return s_Instance->GetSlot_Impl(key); };
-	
+		inline static void BindKey( ActionSlot slot, Key key ) { s_Instance->m_ActionKeys[ slot ].push_back( key ); };
+		inline static ActionSlot GetSlot( Key key ) { return s_Instance->GetSlot_Impl( key ); };
+
 	private:
-		ActionSlot GetSlot_Impl(Key key) const
+		ActionSlot GetSlot_Impl( Key key ) const
 		{
-			for (ActionSlot i = 0; i < ActionSlot_Count; i++)
+			for ( ActionSlot i = 0; i < ActionSlot_Count; i++ )
 			{
-				auto action = m_ActionKeys[i];
-				auto it = std::find(action.begin(), action.end(), key);
-				if (it != action.end()) return i;
+				auto action = m_ActionKeys[ i ];
+				auto it = std::find( action.begin(), action.end(), key );
+				if ( it != action.end() ) return i;
 			}
 
 			return ActionSlot_None;
@@ -68,6 +68,6 @@ namespace Deyo
 
 	private:
 		static Scope<ActionList> s_Instance;
-		std::vector<Key> m_ActionKeys[ActionSlot_Count];
+		std::vector<Key> m_ActionKeys[ ActionSlot_Count ];
 	};
 }

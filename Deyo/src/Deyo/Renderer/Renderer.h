@@ -10,9 +10,9 @@ namespace Deyo
 	class Renderer
 	{
 	public:
-		static void BeginScene(Camera& camera)
+		static void BeginScene( Camera& camera )
 		{
-			DEYO_ASSERT(!s_IsInScene, "Already in the scene");
+			DEYO_ASSERT( !s_IsInScene, "Already in the scene" );
 			camera.Update();
 			s_ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 			s_IsInScene = true;
@@ -20,28 +20,28 @@ namespace Deyo
 
 		static void EndScene()
 		{
-			DEYO_ASSERT(s_IsInScene, "Not in scene");
+			DEYO_ASSERT( s_IsInScene, "Not in scene" );
 			s_IsInScene = false;
 		}
 
-		static void Submit(const Mesh& mesh)
+		static void Submit( const Mesh& mesh )
 		{
 			auto shader = mesh.GetShader();
 
 			shader->Bind();
-			shader->SetMat4("u_ViewProjection", s_ViewProjectionMatrix);
-			shader->SetMat4("u_Transform", mesh.GetModelMatrix());
+			shader->SetMat4( "u_ViewProjection", s_ViewProjectionMatrix );
+			shader->SetMat4( "u_Transform", mesh.GetModelMatrix() );
 
-			RenderCommand::DrawIndexed(mesh.GetVertexArray());
+			RenderCommand::DrawIndexed( mesh.GetVertexArray() );
 		}
 
-		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const Matrix4& transform)
+		static void Submit( const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const Matrix4& transform )
 		{
 			shader->Bind();
-			shader->SetMat4("u_ViewProjection", s_ViewProjectionMatrix);
-			shader->SetMat4("u_Transform", transform);
+			shader->SetMat4( "u_ViewProjection", s_ViewProjectionMatrix );
+			shader->SetMat4( "u_Transform", transform );
 
-			RenderCommand::DrawIndexed(vertexArray);
+			RenderCommand::DrawIndexed( vertexArray );
 		}
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }

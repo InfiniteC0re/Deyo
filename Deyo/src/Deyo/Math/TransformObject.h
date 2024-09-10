@@ -9,12 +9,12 @@ namespace Deyo
 	{
 	public:
 		TransformObject(
-			const Vector3& position = Vector3(0.0f, 0.0f, 0.0f),
-			const Quaternion& rotation = Vector3(0.0f, 0.0f, 0.0f),
-			const Vector3& scale    = Vector3(1.0f, 1.0f, 1.0f)
-		) : m_Position(position),
-			m_Rotation(rotation),
-			m_Scale(scale)
+			const Vector3& position = Vector3( 0.0f, 0.0f, 0.0f ),
+			const Quaternion& rotation = Vector3( 0.0f, 0.0f, 0.0f ),
+			const Vector3& scale = Vector3( 1.0f, 1.0f, 1.0f )
+		) : m_Position( position ),
+			m_Rotation( rotation ),
+			m_Scale( scale )
 		{
 			Recalculate();
 		}
@@ -22,12 +22,12 @@ namespace Deyo
 		void Recalculate()
 		{
 			m_ModelMatrix =
-				glm::translate(Matrix4(1.0f), m_Position) *
-				glm::toMat4(m_Rotation) *
-				glm::scale(Matrix4(1.0f), m_Scale);
+				glm::translate( Matrix4( 1.0f ), m_Position ) *
+				glm::toMat4( m_Rotation ) *
+				glm::scale( Matrix4( 1.0f ), m_Scale );
 		}
 
-		void Set(const Vector3& position, const Quaternion& rotation, const Vector3& scale)
+		void Set( const Vector3& position, const Quaternion& rotation, const Vector3& scale )
 		{
 			m_Position = position;
 			m_Rotation = rotation;
@@ -35,25 +35,25 @@ namespace Deyo
 			Recalculate();
 		}
 
-		void SetPosition(const Vector3& position)
+		void SetPosition( const Vector3& position )
 		{
 			m_Position = position;
 			Recalculate();
 		}
 
-		void SetRotation(const Quaternion& rotation)
+		void SetRotation( const Quaternion& rotation )
 		{
 			m_Rotation = rotation;
 			Recalculate();
 		}
 
-		void SetScale(float uniformScale)
+		void SetScale( float uniformScale )
 		{
 			m_Scale = { uniformScale, uniformScale, uniformScale };
 			Recalculate();
 		}
 
-		void SetScale(const Vector3& scale)
+		void SetScale( const Vector3& scale )
 		{
 			m_Scale = scale;
 			Recalculate();

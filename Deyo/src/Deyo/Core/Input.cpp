@@ -7,7 +7,7 @@ namespace Deyo
 
 	void Input::Create()
 	{
-		DEYO_ASSERT(s_Instance == nullptr, "You're trying to create second instance of Deyo::Input");
+		DEYO_ASSERT( s_Instance == nullptr, "You're trying to create second instance of Deyo::Input" );
 
 		extern Input* CreateInput();
 		s_Instance = CreateInput();

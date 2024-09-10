@@ -10,9 +10,9 @@ namespace Deyo
 	public:
 		static void Init();
 
-		static inline Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; };
-		static inline Ref<spdlog::logger>& GetAppLogger() { return s_AppLogger; };
-	
+		static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; };
+		static Ref<spdlog::logger>& GetAppLogger() { return s_AppLogger; };
+
 	private:
 		static Ref<spdlog::logger> s_CoreLogger;
 		static Ref<spdlog::logger> s_AppLogger;

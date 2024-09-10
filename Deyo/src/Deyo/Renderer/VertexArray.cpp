@@ -8,13 +8,13 @@ namespace Deyo
 {
 	Ref<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::GetAPI())
+		switch ( Renderer::GetAPI() )
 		{
 		case RendererAPI::API::OpenGL:
 			return CreateRef<OpenGLVertexArray>();
 			break;
 		default:
-			DEYO_ASSERT(false, "Unsupported Renderer API");
+			DEYO_ASSERT( false, "Unsupported Renderer API" );
 			return nullptr;
 		}
 	}

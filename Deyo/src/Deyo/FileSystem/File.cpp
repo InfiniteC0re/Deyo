@@ -5,6 +5,6 @@ namespace Deyo
 {
 	void File::Destroy()
 	{
-		m_FileSystem->DestroyFile(shared_from_this());
+		m_FileSystem->DestroyFile( shared_from_this() );
 	}
 }

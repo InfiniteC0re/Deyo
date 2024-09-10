@@ -7,28 +7,28 @@
 
 namespace Deyo
 {
-	bool WindowsInput::IsKeyPressedImpl(int keyCode) const
+	bool WindowsInput::IsKeyPressedImpl( int keyCode ) const
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		int state = glfwGetKey(window, keyCode);
+		auto window = static_cast<GLFWwindow*>( Application::Get().GetWindow().GetNativeWindow() );
+		int state = glfwGetKey( window, keyCode );
 
 		return state == GLFW_PRESS;
 	}
 
-	bool WindowsInput::IsMouseButtonPressedImpl(int button) const
+	bool WindowsInput::IsMouseButtonPressedImpl( int button ) const
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		int state = glfwGetMouseButton(window, button);
+		auto window = static_cast<GLFWwindow*>( Application::Get().GetWindow().GetNativeWindow() );
+		int state = glfwGetMouseButton( window, button );
 
 		return state == GLFW_PRESS;
 	}
 
 	std::pair<float, float> WindowsInput::GetMousePositionImpl() const
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto window = static_cast<GLFWwindow*>( Application::Get().GetWindow().GetNativeWindow() );
 		double mouseX, mouseY;
 
-		glfwGetCursorPos(window, &mouseX, &mouseY);
+		glfwGetCursorPos( window, &mouseX, &mouseY );
 		return { (float)mouseX, (float)mouseY };
 	}
 

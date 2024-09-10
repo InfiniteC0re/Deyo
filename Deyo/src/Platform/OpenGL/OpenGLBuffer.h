@@ -7,18 +7,18 @@ namespace Deyo
 	{
 	public:
 		OpenGLVertexBuffer();
-		OpenGLVertexBuffer(uint32_t size);
-		OpenGLVertexBuffer(const void* data, uint32_t size);
+		OpenGLVertexBuffer( uint32_t size );
+		OpenGLVertexBuffer( const void* data, uint32_t size );
 		~OpenGLVertexBuffer();
 
-		virtual void SetData(const void* data, uint32_t size) override;
-		virtual void SetData(const void* data, uint32_t offset, uint32_t size) override;
+		virtual void SetData( const void* data, uint32_t size ) override;
+		virtual void SetData( const void* data, uint32_t offset, uint32_t size ) override;
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
 		virtual const BufferLayout& GetLayout() const override;
-		virtual void SetLayout(const BufferLayout& layout) override;
+		virtual void SetLayout( const BufferLayout& layout ) override;
 
 	private:
 		BufferLayout m_Layout;
@@ -28,7 +28,7 @@ namespace Deyo
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		OpenGLIndexBuffer( uint32_t* indices, uint32_t count );
 		~OpenGLIndexBuffer();
 
 		virtual void Bind() const override;

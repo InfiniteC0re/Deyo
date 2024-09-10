@@ -9,13 +9,13 @@ namespace Deyo
 
 	RendererAPI* RendererAPI::Create()
 	{
-		switch (s_API)
+		switch ( s_API )
 		{
 		case API::OpenGL:
 			return new OpenGLRendererAPI();
 			break;
 		default:
-			DEYO_ASSERT(false, "Unsupported Renderer API");
+			DEYO_ASSERT( false, "Unsupported Renderer API" );
 			return nullptr;
 		}
 	}

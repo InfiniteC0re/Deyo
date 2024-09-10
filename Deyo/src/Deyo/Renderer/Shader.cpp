@@ -6,28 +6,28 @@
 
 namespace Deyo
 {
-	Ref<Shader> Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create( const std::string& filepath )
 	{
-		switch (Renderer::GetAPI())
+		switch ( Renderer::GetAPI() )
 		{
 		case RendererAPI::API::OpenGL:
-			return CreateRef<OpenGLShader>(filepath);
+			return CreateRef<OpenGLShader>( filepath );
 			break;
 		default:
-			DEYO_ASSERT(false, "Unsupported Renderer API");
+			DEYO_ASSERT( false, "Unsupported Renderer API" );
 			return nullptr;
 		}
 	}
 
-	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& pixelSrc)
+	Ref<Shader> Shader::Create( const std::string& name, const std::string& vertexSrc, const std::string& pixelSrc )
 	{
-		switch (Renderer::GetAPI())
+		switch ( Renderer::GetAPI() )
 		{
 		case RendererAPI::API::OpenGL:
-			return CreateRef<OpenGLShader>(name, vertexSrc, pixelSrc);
+			return CreateRef<OpenGLShader>( name, vertexSrc, pixelSrc );
 			break;
 		default:
-			DEYO_ASSERT(false, "Unsupported Renderer API");
+			DEYO_ASSERT( false, "Unsupported Renderer API" );
 			return nullptr;
 		}
 	}

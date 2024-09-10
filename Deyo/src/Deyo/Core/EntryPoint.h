@@ -3,21 +3,21 @@
 // For client use only
 
 #ifndef DEYO_CLIENT
-	#error "Include <Deyo/Deyo.h> instead please"
+#error "Include <Deyo/Deyo.h> instead please"
 #endif
 
 extern Deyo::Application* Deyo::CreateApplication();
 
 #ifdef DEYO_PLATFORM_WINDOWS
 
-int main(int argc, char** argv)
+int main( int argc, char** argv )
 {
 	// initialize log system
 	Deyo::Log::Init();
-	Deyo::FileManager::Instance().MountFileSystem(Deyo::FileSystem::Create("global"));
+	Deyo::FileManager::Instance().MountFileSystem( Deyo::FileSystem::Create( "global" ) );
 
-	DEYO_CORE_INFO("Initialized log system");
-	DEYO_CORE_INFO("Welcome to the Deyo Engine");
+	DEYO_CORE_INFO( "Initialized log system" );
+	DEYO_CORE_INFO( "Welcome to the Deyo Engine" );
 
 	// create the application
 	Deyo::Application* app = Deyo::CreateApplication();

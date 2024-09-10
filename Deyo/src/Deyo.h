@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef DEYO_ENGINE
-	#error "This header should only be included by clients"
+#error "This header should only be included by clients"
 #else
-	#define DEYO_CLIENT
+#define DEYO_CLIENT
 #endif
 
 #include <Deyo/Core/Core.h>

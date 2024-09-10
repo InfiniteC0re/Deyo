@@ -8,7 +8,7 @@ namespace Deyo
 	class OpenGLContext : public GraphicsContext
 	{
 	public:
-		OpenGLContext(GLFWwindow* windowHandle);
+		OpenGLContext( GLFWwindow* windowHandle );
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;

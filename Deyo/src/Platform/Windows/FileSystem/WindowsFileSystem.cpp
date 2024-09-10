@@ -4,12 +4,12 @@
 
 namespace Deyo
 {
-	WindowsFileSystem::WindowsFileSystem(const std::string& name) : FileSystem(name) { }
+	WindowsFileSystem::WindowsFileSystem( const std::string& name ) : FileSystem( name ) { }
 
-	Ref<File> WindowsFileSystem::CreateFile_impl(const std::wstring& filepath, File::CreateFlags flags)
+	Ref<File> WindowsFileSystem::CreateFile_impl( const std::wstring& filepath, File::CreateFlags flags )
 	{
-		auto file = CreateRef<WindowsFile>(this);
-		file->Open(filepath, flags);
+		auto file = CreateRef<WindowsFile>( this );
+		file->Open( filepath, flags );
 
 		return file;
 	}

@@ -4,7 +4,7 @@
 
 namespace Deyo
 {
-	FileSystem::FileSystem(const std::string& name)
+	FileSystem::FileSystem( const std::string& name )
 	{
 		m_Name = name;
 	}
@@ -14,13 +14,13 @@ namespace Deyo
 		Destroy();
 	}
 
-	Ref<File> FileSystem::CreateFile(const std::wstring& filepath, File::CreateFlags flags)
+	Ref<File> FileSystem::CreateFile( const std::wstring& filepath, File::CreateFlags flags )
 	{
-		auto pFile = CreateFile_impl(filepath, flags);
-		
-		if (pFile)
+		auto pFile = CreateFile_impl( filepath, flags );
+
+		if ( pFile )
 		{
-			m_Files.push_back(pFile);
+			m_Files.push_back( pFile );
 		}
 
 		return pFile;
@@ -29,31 +29,31 @@ namespace Deyo
 	void FileSystem::Destroy()
 	{
 		// close and destroy every opened file of this filesystem
-		for (auto pFile : m_Files)
+		for ( auto pFile : m_Files )
 		{
-			FileSystem::DestroyFile(pFile);
+			FileSystem::DestroyFile( pFile );
 		}
 	}
 
-	Ref<FileSystem> FileSystem::Create(const std::string& name)
+	Ref<FileSystem> FileSystem::Create( const std::string& name )
 	{
-		#ifdef DEYO_PLATFORM_WINDOWS
-			return CreateRef<WindowsFileSystem>(name);
-		#endif
+#ifdef DEYO_PLATFORM_WINDOWS
+		return CreateRef<WindowsFileSystem>( name );
+#endif
 
 		return nullptr;
 	}
 
-	void FileSystem::DestroyFile(Ref<File> pFile)
+	void FileSystem::DestroyFile( Ref<File> pFile )
 	{
-		if (pFile)
+		if ( pFile )
 		{
-			for (auto it = m_Files.begin(); it != m_Files.end();)
+			for ( auto it = m_Files.begin(); it != m_Files.end();)
 			{
-				if (*it == pFile)
+				if ( *it == pFile )
 				{
 					pFile->Close();
-					m_Files.erase(it);
+					m_Files.erase( it );
 					return;
 				}
 				else

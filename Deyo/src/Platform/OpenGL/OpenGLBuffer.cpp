@@ -9,49 +9,49 @@ namespace Deyo
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer()
 	{
-		glGenBuffers(1, &m_Id);
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
+		glGenBuffers( 1, &m_Id );
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer( uint32_t size )
 	{
-		glGenBuffers(1, &m_Id);
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
-		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+		glGenBuffers( 1, &m_Id );
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
+		glBufferData( GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW );
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* data, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer( const void* data, uint32_t size )
 	{
-		glGenBuffers(1, &m_Id);
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		glGenBuffers( 1, &m_Id );
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
+		glBufferData( GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW );
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
-		glDeleteBuffers(1, &m_Id);
+		glDeleteBuffers( 1, &m_Id );
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, uint32_t offset, uint32_t size)
+	void OpenGLVertexBuffer::SetData( const void* data, uint32_t offset, uint32_t size )
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
-		glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
+		glBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	void OpenGLVertexBuffer::SetData( const void* data, uint32_t size )
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
+		glBufferData( GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW );
 	}
 
 	void OpenGLVertexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
+		glBindBuffer( GL_ARRAY_BUFFER, m_Id );
 	}
 
 	void OpenGLVertexBuffer::Unbind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer( GL_ARRAY_BUFFER, 0 );
 	}
 
 	const Deyo::BufferLayout& OpenGLVertexBuffer::GetLayout() const
@@ -59,7 +59,7 @@ namespace Deyo
 		return m_Layout;
 	}
 
-	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout)
+	void OpenGLVertexBuffer::SetLayout( const BufferLayout& layout )
 	{
 		m_Layout = layout;
 	}
@@ -68,27 +68,27 @@ namespace Deyo
 	// OpenGLIndexBuffer
 	/////////////////////////////////////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer( uint32_t* indices, uint32_t count )
 	{
-		glGenBuffers(1, &m_Id);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * count, indices, GL_STATIC_DRAW);
+		glGenBuffers( 1, &m_Id );
+		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_Id );
+		glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( uint32_t ) * count, indices, GL_STATIC_DRAW );
 		m_Count = count;
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
-		glDeleteBuffers(1, &m_Id);
+		glDeleteBuffers( 1, &m_Id );
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
+		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_Id );
 	}
 
 	void OpenGLIndexBuffer::Unbind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
 	}
 
 	uint32_t OpenGLIndexBuffer::GetCount() const

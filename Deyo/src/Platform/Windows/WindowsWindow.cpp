@@ -17,7 +17,7 @@ namespace Deyo
 	Input* CreateInput() { return new WindowsInput(); }
 	uint32_t WindowsWindow::s_WindowCount = 0;
 
-	WindowsWindow::WindowsWindow(const Deyo::WindowFactory::WindowSettings& settings)
+	WindowsWindow::WindowsWindow( const Deyo::WindowFactory::WindowSettings& settings )
 	{
 		// Save settings
 		m_Data.Title = settings.Title;
@@ -26,151 +26,151 @@ namespace Deyo
 		m_Data.VSync = settings.VSync;
 
 		// Create window
-		if (s_WindowCount == 0)
+		if ( s_WindowCount == 0 )
 		{
 			int glfwStatus = glfwInit();
-			DEYO_ASSERT(glfwStatus == GLFW_TRUE, "glfwInit failed");
-			glfwSetErrorCallback([](int error, const char* desc)
+			DEYO_ASSERT( glfwStatus == GLFW_TRUE, "glfwInit failed" );
+			glfwSetErrorCallback( []( int error, const char* desc )
 			{
-				DEYO_CORE_ERROR("GLFW Error: {0} (${1})", desc, error);
-			});
+				DEYO_CORE_ERROR( "GLFW Error: {0} (${1})", desc, error );
+			} );
 		}
 
-		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		DEYO_ASSERT(m_Window, "glfwCreateWindow failed");
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		m_Window = glfwCreateWindow( m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr );
+		DEYO_ASSERT( m_Window, "glfwCreateWindow failed" );
+		glfwSetWindowUserPointer( m_Window, &m_Data );
 
 		// setup context
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = new OpenGLContext( m_Window );
 		m_Context->Init();
 
 #pragma region GLFW Events Callbacks
 		// window close
-		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		glfwSetWindowCloseCallback( m_Window, []( GLFWwindow* window )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 			WindowCloseEvent evt;
-			winData.EventCallback(evt);
-		});
+			winData.EventCallback( evt );
+		} );
 
 		// window focus/unfocus
-		glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* window, int focused)
+		glfwSetWindowFocusCallback( m_Window, []( GLFWwindow* window, int focused )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 
-			if (focused)
+			if ( focused )
 			{
 				WindowFocusEvent evt;
-				winData.EventCallback(evt);
+				winData.EventCallback( evt );
 			}
 			else
 			{
 				WindowUnfocusEvent evt;
-				winData.EventCallback(evt);
+				winData.EventCallback( evt );
 			}
-		});
+		} );
 
 		// window resize
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		glfwSetWindowSizeCallback( m_Window, []( GLFWwindow* window, int width, int height )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
-			WindowResizeEvent evt(width, height);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
+			WindowResizeEvent evt( width, height );
 
 			winData.Height = height;
 			winData.Width = width;
 
-			winData.EventCallback(evt);
-		});
+			winData.EventCallback( evt );
+		} );
 
 		// window move
-		glfwSetWindowPosCallback(m_Window, [](GLFWwindow* window, int posX, int posY)
+		glfwSetWindowPosCallback( m_Window, []( GLFWwindow* window, int posX, int posY )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
-			WindowMoveEvent evt(posX, posY);
-			winData.EventCallback(evt);
-		});
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
+			WindowMoveEvent evt( posX, posY );
+			winData.EventCallback( evt );
+		} );
 
 		// keyboard
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		glfwSetKeyCallback( m_Window, []( GLFWwindow* window, int key, int scancode, int action, int mods )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 
-			switch (action)
+			switch ( action )
 			{
-				case GLFW_PRESS:
-				{
-					KeyPressEvent evt(key, mods, false);
-					winData.EventCallback(evt);
-					break;
-				}
-				case GLFW_REPEAT:
-				{
-					KeyPressEvent evt(key, mods, true);
-					winData.EventCallback(evt);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					KeyReleaseEvent evt(key, mods);
-					winData.EventCallback(evt);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				KeyPressEvent evt( key, mods, false );
+				winData.EventCallback( evt );
+				break;
 			}
-		});
+			case GLFW_REPEAT:
+			{
+				KeyPressEvent evt( key, mods, true );
+				winData.EventCallback( evt );
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				KeyReleaseEvent evt( key, mods );
+				winData.EventCallback( evt );
+				break;
+			}
+			}
+		} );
 
 		// mouse move
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int c)
+		glfwSetCharCallback( m_Window, []( GLFWwindow* window, unsigned int c )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 
-			KeyInputEvent evt(c);
-			winData.EventCallback(evt);
-		});
+			KeyInputEvent evt( c );
+			winData.EventCallback( evt );
+		} );
 
 		// mouse buttons
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetMouseButtonCallback( m_Window, []( GLFWwindow* window, int button, int action, int mods )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 
-			switch (action)
+			switch ( action )
 			{
-				case GLFW_PRESS:
-				{
-					MouseButtonPressEvent evt(button);
-					winData.EventCallback(evt);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					MouseButtonReleaseEvent evt(button);
-					winData.EventCallback(evt);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				MouseButtonPressEvent evt( button );
+				winData.EventCallback( evt );
+				break;
 			}
-		});
+			case GLFW_RELEASE:
+			{
+				MouseButtonReleaseEvent evt( button );
+				winData.EventCallback( evt );
+				break;
+			}
+			}
+		} );
 
 		// scroll 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double offsetX, double offsetY)
+		glfwSetScrollCallback( m_Window, []( GLFWwindow* window, double offsetX, double offsetY )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
-			
-			MouseScrollEvent evt((float)offsetX, (float)offsetY);
-			winData.EventCallback(evt);
-		});
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
+
+			MouseScrollEvent evt( (float)offsetX, (float)offsetY );
+			winData.EventCallback( evt );
+		} );
 
 		// mouse move
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double offsetX, double offsetY)
+		glfwSetCursorPosCallback( m_Window, []( GLFWwindow* window, double offsetX, double offsetY )
 		{
-			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& winData = *(WindowData*)glfwGetWindowUserPointer( window );
 
-			MouseMoveEvent evt((float)offsetX, (float)offsetY);
-			winData.EventCallback(evt);
-		});
+			MouseMoveEvent evt( (float)offsetX, (float)offsetY );
+			winData.EventCallback( evt );
+		} );
 
 #pragma endregion
 
 		// Apply settings
-		SetVSync(m_Data.VSync);
+		SetVSync( m_Data.VSync );
 
 		// increment count of opened windows
 		s_WindowCount++;
@@ -204,14 +204,14 @@ namespace Deyo
 
 	const char* WindowsWindow::GetClipboardText() const
 	{
-		DEYO_CORE_INFO("Window::GetClipboardText");
-		return glfwGetClipboardString(m_Window);
+		DEYO_CORE_INFO( "Window::GetClipboardText" );
+		return glfwGetClipboardString( m_Window );
 	}
 
-	void WindowsWindow::SetClipboardText(const char* text)
+	void WindowsWindow::SetClipboardText( const char* text )
 	{
-		DEYO_CORE_INFO("Window::SetClipboardText");
-		glfwSetClipboardString(nullptr, text);
+		DEYO_CORE_INFO( "Window::SetClipboardText" );
+		glfwSetClipboardString( nullptr, text );
 	}
 
 	void* WindowsWindow::GetNativeWindow() const
@@ -222,14 +222,14 @@ namespace Deyo
 	void WindowsWindow::Terminate()
 	{
 		delete m_Context;
-		glfwDestroyWindow(m_Window);
+		glfwDestroyWindow( m_Window );
 		s_WindowCount--;
 
 		// terminate glfw if we closed the last window
-		if (s_WindowCount == 0) { glfwTerminate(); }
+		if ( s_WindowCount == 0 ) { glfwTerminate(); }
 	}
 
-	void WindowsWindow::SetEventCallback(const EventCb& callback)
+	void WindowsWindow::SetEventCallback( const EventCb& callback )
 	{
 		m_Data.EventCallback = callback;
 	}
@@ -239,15 +239,15 @@ namespace Deyo
 		return m_Data.VSync;
 	}
 
-	void WindowsWindow::SetVSync(bool state)
+	void WindowsWindow::SetVSync( bool state )
 	{
-		if (state)
+		if ( state )
 		{
-			glfwSwapInterval(1);
+			glfwSwapInterval( 1 );
 		}
-		else 
-		{ 
-			glfwSwapInterval(0);
+		else
+		{
+			glfwSwapInterval( 0 );
 		}
 
 		m_Data.VSync = state;

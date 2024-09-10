@@ -11,22 +11,22 @@ namespace Deyo
 	public:
 		Mesh()
 		{
-			SetVertexArray(VertexArray::Create());
-			SetShader(nullptr);
+			SetVertexArray( VertexArray::Create() );
+			SetShader( nullptr );
 		}
 
-		Mesh(const Ref<Shader>& shader)
+		Mesh( const Ref<Shader>& shader )
 		{
-			SetVertexArray(VertexArray::Create());
-			SetShader(shader);
+			SetVertexArray( VertexArray::Create() );
+			SetShader( shader );
 		}
 
-		void SetVertexArray(const Ref<VertexArray>& vertexArray)
+		void SetVertexArray( const Ref<VertexArray>& vertexArray )
 		{
 			m_VertexArray = vertexArray;
 		}
 
-		void SetShader(const Ref<Shader>& shader)
+		void SetShader( const Ref<Shader>& shader )
 		{
 			m_Shader = shader;
 		}

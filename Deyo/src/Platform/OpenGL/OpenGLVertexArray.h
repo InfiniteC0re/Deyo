@@ -13,8 +13,8 @@ namespace Deyo
 		void Bind() override;
 		void Unbind() override;
 
-		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
-		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
+		void AddVertexBuffer( const Ref<VertexBuffer>& vertexBuffer ) override;
+		void SetIndexBuffer( const Ref<IndexBuffer>& indexBuffer ) override;
 
 		const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override;
 		const Ref<IndexBuffer>& GetIndexBuffer() const override;

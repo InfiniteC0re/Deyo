@@ -4,16 +4,16 @@
 
 namespace Deyo
 {
-	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle) : m_WindowHandle(windowHandle) { }
+	OpenGLContext::OpenGLContext( GLFWwindow* windowHandle ) : m_WindowHandle( windowHandle ) { }
 
 	void OpenGLContext::Init()
 	{
-		glfwMakeContextCurrent(m_WindowHandle);
-		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		glfwMakeContextCurrent( m_WindowHandle );
+		gladLoadGLLoader( (GLADloadproc)glfwGetProcAddress );
 	}
 
 	void OpenGLContext::SwapBuffers()
 	{
-		glfwSwapBuffers(m_WindowHandle);
+		glfwSwapBuffers( m_WindowHandle );
 	}
 }

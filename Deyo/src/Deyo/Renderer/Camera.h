@@ -14,78 +14,78 @@ namespace Deyo
 		};
 
 	public:
-		Camera(float aspectRatio = 16.0f / 9.0f)
+		Camera( float aspectRatio = 16.0f / 9.0f )
 		{
-			SetPosition(Vector3(0, 0, 0));
-			SetRotation(Vector3(0, 0, 0));
-			SetPerspectiveSettings(45.0f, aspectRatio, 0.1f, 200.0f);
-			SetOrthographicSettings(-1.0f, 1.0f, -1.0f, 1.0f);
-			SetCameraMode(Mode::Perspective);
+			SetPosition( Vector3( 0, 0, 0 ) );
+			SetRotation( Vector3( 0, 0, 0 ) );
+			SetPerspectiveSettings( 45.0f, aspectRatio, 0.1f, 200.0f );
+			SetOrthographicSettings( -1.0f, 1.0f, -1.0f, 1.0f );
+			SetCameraMode( Mode::Perspective );
 			Update();
 		}
 
-		void SetPerspectiveSettings(float fov, float aspectRatio, float nearClip, float farClip);
-		void SetOrthographicSettings(float left, float right, float bottom, float top);
+		void SetPerspectiveSettings( float fov, float aspectRatio, float nearClip, float farClip );
+		void SetOrthographicSettings( float left, float right, float bottom, float top );
 
 		void Update();
 
-		void SetCameraMode(Mode cameraMode)
+		void SetCameraMode( Mode cameraMode )
 		{
-			if (m_Mode != cameraMode)
+			if ( m_Mode != cameraMode )
 			{
 				m_Mode = cameraMode;
 				m_IsProjectionDirty = true;
 			}
 		}
 
-		void SetFOV(float fov)
+		void SetFOV( float fov )
 		{
-			if (m_FOV != fov)
+			if ( m_FOV != fov )
 			{
 				m_FOV = fov;
 				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
 			}
 		}
 
-		void SetAspectRatio(float aspectRatio)
+		void SetAspectRatio( float aspectRatio )
 		{
-			if (m_AspectRatio != aspectRatio)
+			if ( m_AspectRatio != aspectRatio )
 			{
 				m_AspectRatio = aspectRatio;
 				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
 			}
 		}
 
-		void SetNearClip(float nearClip)
+		void SetNearClip( float nearClip )
 		{
-			if (m_NearClip != nearClip)
+			if ( m_NearClip != nearClip )
 			{
 				m_NearClip = nearClip;
 				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
 			}
 		}
 
-		void SetFarClip(float farClip)
+		void SetFarClip( float farClip )
 		{
-			if (m_FarClip != farClip)
+			if ( m_FarClip != farClip )
 			{
 				m_FarClip = farClip;
 				m_IsProjectionDirty |= m_Mode == Mode::Perspective;
 			}
 		}
 
-		void SetPosition(const Vector3& position)
+		void SetPosition( const Vector3& position )
 		{
-			if (m_Position != position)
+			if ( m_Position != position )
 			{
 				m_Position = position;
 				m_IsViewDirty = true;
 			}
 		}
 
-		void SetRotation(const Quaternion& rotation)
+		void SetRotation( const Quaternion& rotation )
 		{
-			if (m_Rotation != rotation)
+			if ( m_Rotation != rotation )
 			{
 				m_Rotation = rotation;
 				m_IsViewDirty = true;
@@ -129,7 +129,7 @@ namespace Deyo
 		Matrix4 m_ViewProjection;
 		Vector3 m_Position;
 		Quaternion m_Rotation;
-		
+
 		// Perspective camera
 		float m_FOV;
 		float m_AspectRatio;

@@ -17,13 +17,13 @@ namespace Deyo
 
 	enum EventCategory
 	{
-		EventCategoryNone			= 0,
-		EventCategoryInput			= BIT(0),
-		EventCategoryKeyboard		= BIT(1),
-		EventCategoryMouse			= BIT(2),
-		EventCategoryMouseButton	= BIT(3),
-		EventCategoryWindow			= BIT(4),
-		EventCategoryApplication	= BIT(5),
+		EventCategoryNone = 0,
+		EventCategoryInput = BIT( 0 ),
+		EventCategoryKeyboard = BIT( 1 ),
+		EventCategoryMouse = BIT( 2 ),
+		EventCategoryMouseButton = BIT( 3 ),
+		EventCategoryWindow = BIT( 4 ),
+		EventCategoryApplication = BIT( 5 ),
 	};
 
 #define EVENT_TYPE(TYPE) \
@@ -42,12 +42,14 @@ namespace Deyo
 		virtual uint32_t GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsHandled() { return m_Handled; }
-		inline void SetHandled(bool state) { m_Handled = state; }
+		bool IsHandled() { return m_Handled; }
+		void SetHandled( bool state ) { m_Handled = state; }
 
-		inline bool IsInCategory(EventCategory filter) { return GetCategoryFlags() & filter; }
+		bool IsInCategory( EventCategory filter ) { return GetCategoryFlags() & filter; }
+
 	private:
 		friend class EventDispatcher;
+
 	protected:
 		bool m_Handled = false;
 	};
@@ -55,14 +57,14 @@ namespace Deyo
 	class EventDispatcher
 	{
 	public:
-		EventDispatcher(Event& evt) : m_Event(evt) {};
+		EventDispatcher( Event& evt ) : m_Event( evt ) {};
 
 		template<typename T>
-		bool Dispatch(std::function<bool(T&)> fn)
+		bool Dispatch( std::function<bool( T& )> fn )
 		{
-			if (m_Event.GetType() == T::GetStaticType())
+			if ( m_Event.GetType() == T::GetStaticType() )
 			{
-				m_Event.m_Handled = fn(*(T*)&m_Event);
+				m_Event.m_Handled = fn( *(T*)&m_Event );
 				return true;
 			}
 
